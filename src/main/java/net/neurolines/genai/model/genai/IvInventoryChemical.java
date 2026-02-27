@@ -45,7 +45,6 @@ public class IvInventoryChemical {
     private String chronicInvert; // 만성수생환경유해성 갑각류
     private String chronicAlgae; // 만성수생환경유해성 조류
 
-
     private String persistence; // 잔류성 및 분해성 잔류성
     private String degradability; // 잔류성 및 분해성 분해성
     private String bioPotential; // 생물농축성

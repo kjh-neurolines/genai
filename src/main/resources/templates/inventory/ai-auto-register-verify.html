@@ -61,30 +61,38 @@
                   <tr class="d-block d-md-table-row">
                     <th class="d-block d-md-table-cell">품목구분</th>
                     <td class="d-block d-md-table-cell">
-                      <select class="form-select form-select-sm">
-                        <option>선택</option>
+                      <select class="form-select form-select-sm w-auto" id="selProductType">
+                        <option selected value="">선택</option>
+                        <option value="1">원료</option>
+                        <option value="2">소모품</option>
+                        <option value="3">시약</option>
+                        <option value="4">제품</option>
+                        <option value="5">반제품</option>
                       </select>
                     </td>
                     <th class="d-block d-md-table-cell">자재/제품코드</th>
                     <td class="d-block d-md-table-cell">
-                      <input type="text" class="form-control form-control-sm">
+                      <input type="text" class="form-control form-control-sm" id="productCode">
                     </td>
                   </tr>
                   <tr class="d-block d-md-table-row">
                     <th class="d-block d-md-table-cell">자재/제품명</th>
                     <td class="d-block d-md-table-cell">
-                      <input type="text" class="form-control form-control-sm">
+                      <input type="text" class="form-control form-control-sm" id="productName">
                     </td>
-                    <th class="d-block d-md-table-cell req">회사명</th>
+                    <th class="d-block d-md-table-cell">회사명</th>
                     <td class="d-block d-md-table-cell">
-                      <input type="text" class="form-control form-control-sm">
+                      <input type="text" class="form-control form-control-sm" id="companyName">
                     </td>
                   </tr>
                   <tr class="d-block d-md-table-row">
                     <th class="d-block d-md-table-cell">상태</th>
                     <td class="d-block d-md-table-cell" colspan="3">
-                      <select class="form-select form-select-sm">
-                        <option>선택</option>
+                      <select class="form-select form-select-sm" id="selStatus">
+                        <option value="">선택</option>
+                        <option value="1">등록 완료</option>
+                        <option value="">검증 완료</option>
+                        <option value="">등록 오류</option>
                       </select>
                     </td>
                   </tr>

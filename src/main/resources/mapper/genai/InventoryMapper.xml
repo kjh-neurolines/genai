@@ -319,7 +319,7 @@
         INSERT INTO IV_INVENTORY_HCODE
         (ivi_regno, content)
         VALUES
-        <foreach item="item" collection="hCodes" separator=",">
+        <foreach item="item" collection="hcodes" separator=",">
             (#{item.iviRegno}, #{item.content})
         </foreach>
     </insert>
@@ -328,8 +328,8 @@
         INSERT INTO IV_INVENTORY_PCODE
         (ivi_regno, type, content)
         VALUES
-        <foreach item="item" collection="pCodes" separator=",">
-            (#{item.iviRegno}, #{type} ,#{item.content})
+        <foreach item="item" collection="pcodes" separator=",">
+            (#{item.iviRegno}, #{item.type} ,#{item.content})
         </foreach>
     </insert>
 

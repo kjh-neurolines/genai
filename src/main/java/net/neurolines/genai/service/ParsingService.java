@@ -1,14 +1,15 @@
 package net.neurolines.genai.service;
 
-import lib.neurolines.net.Section2Enum;
-import lib.neurolines.net.Synonym15UtilClass;
-import lib.neurolines.net.Synonym2UtilClass;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+
 import net.neurolines.genai.model.genai.IvInventoryChemical;
 import net.neurolines.genai.model.genai.IvInventoryHcode;
 import net.neurolines.genai.model.genai.IvInventoryPcode;
 import net.neurolines.genai.model.genai.IvInventoryTransport;
+import net.neurolines.genai.util.Section2Enum;
+import net.neurolines.genai.util.Synonym15UtilClass;
+import net.neurolines.genai.util.Synonym2UtilClass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.core.ParameterizedTypeReference;

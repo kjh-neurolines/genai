@@ -142,8 +142,16 @@ public class InventoryService {
             // 물질 정보
             List<IvInventoryChemical> chemicalList = (List<IvInventoryChemical>) data.get("chemicalList");
 
-            if (chemicalList != null && chemicalList.size() > 0)
+            if (chemicalList != null && chemicalList.size() > 0){
+
+                for(IvInventoryChemical chemical : chemicalList)
+                {
+                    chemical.setIviRegno(inventory.getIviRegno());
+                }
+
                 inventoryDao.insertInventoryChemical(chemicalList);
+            }
+
 
             // 그림 문자
 
