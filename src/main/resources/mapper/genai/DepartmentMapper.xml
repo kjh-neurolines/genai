@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.neurolines.genai.dao.genai.DepartmentDao">
+    <select id="selectDepartmentList" parameterType="java.util.Map"
+            resultType="net.neurolines.genai.model.genai.IvDepartment">
+        SELECT
+        id.hq_code as hqCode,
+        ih.hq_name as hqName,
+        id.wp_code as wpCode,
+        iw.wp_name as wpName,
+        id.dm_code as dmCode,
+        id.dm_name as dmName,
+        id.user_company_code as userCompanyCode,
+        id.reg_ymd as regYmd,
+        id.status as status
+        FROM IV_DEPARTMENT id
+        LEFT JOIN IV_WORKPLACE iw ON
+            id.hq_code = iw.hq_code
+                AND id.wp_code = iw.wp_code
+                AND (id.user_company_code = iw.user_company_code OR (id.user_company_code IS NULL AND iw.user_company_code IS NULL))
+        LEFT JOIN IV_HEADQUARTERS ih ON
+            iw.hq_code = ih.hq_code AND
+         (id.user_company_code = ih.user_company_code OR (id.user_company_code IS NULL AND ih.user_company_code IS NULL))
+        WHERE 1 = 1
+        <if test="userCompanyCode != null and userCompanyCode != ''">
+            AND id.user_company_code = #{userCompanyCode}
+        </if>
+        <if test="hqCode != null and hqCode != ''">
+            AND id.hq_code = #{hqCode}
+        </if>
+        <if test="wpCode != null and wpCode != ''">
+            AND id.wp_code = #{wpCode}
+        </if>
+        <if test="dmCode != null and dmCode != ''">
+            AND id.dm_code = #{dmCode}
+        </if>
+        <if test="dmName != null and dmName != ''">
+            AND id.dm_name LIKE CONCAT('%', #{dmName}, '%')
+        </if>
+    </select>
+
+    <insert id="insertDepartment" parameterType="net.neurolines.genai.model.genai.IvDepartment">
+        INSERT INTO IV_DEPARTMENT (hq_code, wp_code, dm_code, dm_name, user_company_code, reg_ymd, status)
+        VALUES (
+                   #{hqCode},
+                   #{wpCode},
+                   #{dmCode},
+                   #{dmName},
+                   #{userCompanyCode},
+                   CAST(DATE_FORMAT(CURDATE(), '%Y%m%d') AS UNSIGNED),
+                   1
+               )
+    </insert>
+
+    <select id="selectDepartmentByDmCode" parameterType="java.util.Map"
+            resultType="net.neurolines.genai.model.genai.IvDepartment">
+        SELECT
+        hq_code as hqCode,
+        wp_code as wpCode,
+        dm_code as dmCode,
+        dm_name as dmName,
+        user_company_code as userCompanyCode,
+        reg_ymd as regYmd,
+        status as status
+        FROM IV_DEPARTMENT
+        WHERE 1 = 1
+        AND wp_code = #{wpCode}
+        AND hq_code = #{hqCode}
+        AND dm_code = #{dmCode}
+        <if test="userCompanyCode != null and userCompanyCode != ''">
+            and user_company_code = #{userCompanyCode}
+        </if>
+        <if test="userCompanyCode == null">
+            and user_company_code IS NULL
+        </if>
+    </select>
+
+    <update id="updateDepartment" parameterType="net.neurolines.genai.model.genai.IvDepartment">
+        UPDATE IV_DEPARTMENT
+        SET
+        dm_name = #{dmName},
+        status = #{status}
+        WHERE
+        1  = 1
+        <if test="hqCode != null and hqCode != ''">
+            AND hq_code = #{hqCode}
+        </if>
+        <if test="wpCode != null and wpCode != ''">
+            AND wp_code = #{wpCode}
+        </if>
+        <if test="dmCode != null and dmCode != ''">
+            AND dm_code = #{dmCode}
+        </if>
+        <if test="userCompanyCode != null and userCompanyCode != ''">
+            and user_company_code = #{userCompanyCode}
+        </if>
+        <if test="userCompanyCode == null">
+            and user_company_code IS NULL
+        </if>
+    </update>
+</mapper>

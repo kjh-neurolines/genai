@@ -1,0 +1,55 @@
+server:
+  port: 8095
+  tomcat:
+    connection-timeout: 10000
+  servlet:
+    session:
+      timeout: 120m
+spring:
+  mvc:
+    view:
+      suffix: .html
+  genai-datasource:
+    jdbc-url: jdbc:log4jdbc:mysql://3.34.177.138:3306/genai?serverTimezone=UTC&characterEncoding=UTF8
+    username: admin
+    password: poxEsdKGgpJHX1!
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+  nlchem-datasource:
+    jdbc-url: jdbc:log4jdbc:mysql://3.34.177.138:3306/nlchem?serverTimezone=UTC&characterEncoding=UTF8
+    username: admin
+    password: poxEsdKGgpJHX1!
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+  main:
+    web-application-type: servlet
+  servlet:
+    multipart:
+      location: /var/www/genai.neurolines.net/upload
+      enabled: true
+      max-file-size: 200MB
+      max-request-size: 215MB
+  thymeleaf:
+    enabled: true          # Thymeleaf 활성화 여부
+    prefix: classpath:/templates/
+    suffix: .html          # 템플릿 파일 확장자
+    cache: false
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  level:
+    jdbc.sqlonly: INFO
+    jdbc.sqltiming: OFF
+    jdbc.audit: OFF
+    jdbc.resultset: OFF
+    jdbc.resultsettable: OFF
+    jdbc.connection: OFF
+
+pagehelper:
+  helper-dialect: mysql # 사용하는 데이터베이스에 맞게 설정 (예: mysql, postgresql 등)
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+
+pdf:
+  url: http://103.57.61.102:12001
+  upload-path: D:/upload/

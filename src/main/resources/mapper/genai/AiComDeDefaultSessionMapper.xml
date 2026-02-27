@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.neurolines.genai.dao.genai.AiComDeDefaultSessionDao">
+    
+    <select id="selectComDeDefaultSession" parameterType="java.util.Map"
+            resultType="net.neurolines.genai.model.genai.AiComDeDefaultSession">
+        SELECT
+            ai_cdds_regno as aiCddsRegNo,
+            user_company_code as userCompanyCode,
+            dm_code as dmCode,
+            session_name as sessionName,
+            reg_ymd as regYmd,
+            status as status
+         FROM AI_COM_DE_DEFAULT_SESSION
+        WHERE
+            status = 1
+        <choose>
+            <when test="userCompanyCode != null and userCompanyCode != ''">
+                AND user_company_code = #{userCompanyCode}
+            </when>
+            <when test="userCompanyCode == null">
+                AND user_company_code is NULL
+            </when>
+        </choose>
+        <choose>
+            <when test="dmCode != null and dmCode != ''">
+                AND dm_code = #{dmCode}
+            </when>
+            <when test="dmCode == null">
+                AND dm_code is NULL
+            </when>
+        </choose>
+        ORDER BY ai_cdds_regno DESC
+    </select>
+    
+</mapper>

@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.neurolines.genai.dao.genai.InventoryDao">
+
+    <insert id="insertDefaultInfo" parameterType="net.neurolines.genai.model.genai.IvInventory"
+            keyProperty="iviRegno" keyColumn="ivi_regno" useGeneratedKeys="true">
+        INSERT INTO IV_INVENTORY (
+                                  gubun,
+                                  product_code,
+                                  vendor_code,
+                                  product_id,
+                                  reg_ymd,
+                                  status,
+                                  status_confirm,
+                                  status_history_yn,
+                                  error_msg,
+                                  registration_name
+        )  VALUES (
+                    #{gubun},
+                   #{productCode},
+                   #{vendorCode},
+                   #{productId},
+                   #{regYmd},
+                   #{status},
+                   #{statusConfirm},
+                   #{statusHistoryYn},
+                   #{errorMsg},
+                   #{registrationName}
+        )
+    </insert>
+
+    <insert id="insertInventory" parameterType="java.util.Map"
+            keyProperty="iviRegno" keyColumn="ivi_regno" useGeneratedKeys="true">
+        INSERT INTO IV_INVENTORY (
+                                  gubun,
+                                  type,
+                                  product_code,
+                                  product_id,
+                                  vendor_code,
+                                  msds_no,
+                                  product_name,
+                                  company_name,
+                                  tel,
+                                  word,
+                                  psc_apr,
+                                  psc_matter,
+                                  psc_color,
+                                  psc_odour,
+                                  psc_odour_threshold,
+                                  psc_ph,
+                                  psc_melting_point,
+                                  psc_boling_point,
+                                  psc_flash_point,
+                                  psc_evaporation_rate,
+                                  psc_flammable,
+                                  psc_explosion_min,
+                                  psc_explosion_max,
+                                  psc_apor_pressure,
+                                  psc_solubility,
+                                  psc_vapour_density,
+                                  psc_relative_density,
+                                  psc_partition_coefficient,
+                                  psc_auto_temperature,
+                                  psc_decomposition_temperature,
+                                  psc_viscosity,
+                                  psc_molecular_weight,
+                                  version,
+                                  first_write_date,
+                                  revision_date,
+                                  reg_ymd,
+                                  error_msg,
+                                  status,
+                                  status_confirm,
+                                  status_history_yn,
+                                  revision_yn,
+                                  registration_name,
+                                  active_yn
+        ) VALUES (
+                             #{gubun},
+                             #{type},
+                             #{productCode},
+                             #{productId},
+                             #{vendorCode},
+                             #{msdsNo},
+                             #{productName},
+                             #{companyName},
+                             #{tel},
+                             #{word},
+                             #{pscApr},
+                             #{pscMatter},
+                             #{pscColor},
+                             #{pscOdour},
+                             #{pscOdourThreshold},
+                             #{pscPh},
+                             #{pscMeltingPoint},
+                             #{pscBoilingPoint},
+                             #{pscFlashPoint},
+                             #{pscEvaporationRate},
+                             #{pscFlammable},
+                             #{pscExplosionMin},
+                             #{pscExplosionMax},
+                             #{pscAporPressure},
+                             #{pscSolubility},
+                             #{pscVapourDensity},
+                             #{pscRelativeDensity},
+                             #{pscPartitionCoefficient},
+                             #{pscAutoTemperature},
+                             #{pscDecompositionTemperature},
+                             #{pscViscosity},
+                             #{pscMolecularWeight},
+                             #{version},
+                             #{firstWriteDate},
+                             #{revisionDate},
+                             #{regYmd},
+                             #{errorMsg},
+                             #{status},
+                             #{statusConfirm},
+                             #{statusHistoryYn},
+                             #{revisionYn},
+                             #{productCode},
+                             #{productCode}
+        )
+    </insert>
+
+    <insert id="insertInventoryChemical" parameterType="net.neurolines.genai.model.genai.IvInventoryChemical">
+        INSERT INTO IV_INVENTORY_CHEMICAL (
+                                            ivi_regno,
+                                            formula,
+                                            chmical_name,
+                                            cas_no,
+                                            reg_no,
+                                            percent,
+                                           twa,
+                                           oral,
+                                           dermal,
+                                           inhalation,
+                                           inhalation_gas,
+                                           inhalation_steam,
+                                           inhalation_mist,
+                                           skin_corrosion,
+                                           eye_damage,
+                                           respiratory_irritability,
+                                           skin_sensitivity,
+                                           mutagenicity,
+                                           carcinogenicity,
+                                           reproductive_toxicity,
+                                           target_organ_toxicity_single,
+                                           target_organ_toxicity_repeat,
+                                           aspiration_hazard,
+                                           ecotoxicity_fish,
+                                           ecotoxicity_invert,
+                                           ecotoxicity_algae,
+                                           chronic_fish,
+                                           chronic_invert,
+                                           chronic_algae,
+                                           persistence,
+                                           degradability,
+                                           bio_potential,
+                                           bio_degradable,
+                                           mobility_in_soil,
+                                           hazardous_ozne,
+                                           other_effect,
+                                           national_exrpsure,
+                                           acgih_reg,
+                                           osha_reg,
+                                           bio_reg,
+                                           regul_1,
+                                           regul_2,
+                                           regul_3,
+                                           regul_4,
+                                           regul_5,
+                                           regul_6,
+                                           regul_7,
+                                           regul_8,
+                                           regul_9,
+                                           regul_10,
+                                           regul_11,
+                                           regul_12,
+                                           regul_13,
+                                           regul_14,
+                                           regul_14_1,
+                                           regul_14_2,
+                                           regul_14_3,
+                                           regul_15,
+                                           regul_16,
+                                           regul_17,
+                                           regul_18,
+                                           regul_19,
+                                           regul_20,
+                                           regul_21,
+                                           regul_22,
+                                           regul_23,
+                                           regul_24,
+                                           regul_24_1,
+                                           regul_24_2,
+                                           regul_24_3,
+                                           regul_24_4,
+                                           regul_24_5,
+                                           regul_24_6,
+                                           regul_25,
+                                           regul_26,
+                                           regul_27,
+                                           regul_28,
+                                           regul_29,
+                                           regul_30,
+                                           reg_ymd,
+                                           status
+        ) VALUES
+
+        <foreach item="item" collection="chemicalList" separator=",">
+        (
+         #{item.iviRegno},
+         #{item.formula},
+         #{item.chmicalName},
+         #{item.casNo},
+         #{item.regNo},
+         #{item.percent},
+         #{item.twa},
+         #{item.oral},
+         #{item.dermal},
+         #{item.inhalation},
+         #{item.inhalationGas},
+         #{item.inhalationSteam},
+         #{item.inhalationMist},
+         #{item.skinCorrosion},
+         #{item.eyeDamage},
+         #{item.respiratoryIrritability},
+         #{item.skinSensitivity},
+         #{item.mutagenicity},
+         #{item.carcinogenicity},
+         #{item.reproductiveToxicity},
+         #{item.targetOrganToxicitySingle},
+         #{item.targetOrganToxicityRepeat},
+         #{item.aspirationHazard},
+         #{item.ecotoxicityFish},
+         #{item.ecotoxicityInvert},
+         #{item.ecotoxicityAlgae},
+         #{item.chronicFish},
+         #{item.chronicInvert},
+         #{item.chronicAlgae},
+         #{item.persistence},
+         #{item.degradability},
+         #{item.bioPotential},
+         #{item.bioDegradable},
+         #{item.mobilityInSoil},
+         #{item.hazardousOzne},
+         #{item.otherEffect},
+         #{item.nationalExrposure},
+         #{item.acgihReg},
+         #{item.oshaReg},
+         #{item.bioReg},
+         #{item.regul1},
+         #{item.regul2},
+         #{item.regul3},
+         #{item.regul4},
+         #{item.regul5},
+         #{item.regul6},
+         #{item.regul7},
+         #{item.regul8},
+         #{item.regul9},
+         #{item.regul10},
+         #{item.regul11},
+         #{item.regul12},
+         #{item.regul13},
+         #{item.regul14},
+         #{item.regul14_1},
+         #{item.regul14_2},
+         #{item.regul14_3},
+         #{item.regul15},
+         #{item.regul16},
+         #{item.regul17},
+         #{item.regul18},
+         #{item.regul19},
+         #{item.regul20},
+         #{item.regul21},
+         #{item.regul22},
+         #{item.regul23},
+         #{item.regul24},
+         #{item.regul24_1},
+         #{item.regul24_2},
+         #{item.regul24_3},
+         #{item.regul24_4},
+         #{item.regul24_5},
+         #{item.regul24_6},
+         #{item.regul25},
+         #{item.regul26},
+         #{item.regul27},
+         #{item.regul28},
+         #{item.regul29},
+         #{item.regul30},
+         CAST(DATE_FORMAT(CURDATE(), '%Y%m%d') AS UNSIGNED),
+         1
+        )
+        </foreach>
+    </insert>
+
+    <!-- 유해성 위험성 분류 정보 저장 -->
+    <insert id="insertInventoryClassResult" parameterType="net.neurolines.genai.model.genai.IvInventoryClassResult">
+        INSERT INTO IV_INVENTORY_CLASS_RESULT
+        (ivi_regno, calss_result_code)
+        VALUES
+        <foreach item="item" collection="classResults" separator=",">
+            (#{item.iviRegno}, #{item.classResultCode})
+        </foreach>
+    </insert>
+
+    <!--그림문자 정보 저장 -->
+    <insert id="insertInventoryPictureInfo" parameterType="net.neurolines.genai.model.genai.IvInventoryPicture">
+        INSERT INTO IV_INVENTORY_PICTURE
+        (ivi_regno, picture)
+        VALUES
+        <foreach item="item" collection="pictures" separator=",">
+            (#{item.iviRegno}, #{item.picture})
+        </foreach>
+    </insert>
+
+    <insert id="insertInventoryHcode" parameterType="net.neurolines.genai.model.genai.IvInventoryHcode">
+        INSERT INTO IV_INVENTORY_HCODE
+        (ivi_regno, content)
+        VALUES
+        <foreach item="item" collection="hCodes" separator=",">
+            (#{item.iviRegno}, #{item.content})
+        </foreach>
+    </insert>
+
+    <insert id="insertInventoryPcode" parameterType="net.neurolines.genai.model.genai.IvInventoryPcode">
+        INSERT INTO IV_INVENTORY_PCODE
+        (ivi_regno, type, content)
+        VALUES
+        <foreach item="item" collection="pCodes" separator=",">
+            (#{item.iviRegno}, #{type} ,#{item.content})
+        </foreach>
+    </insert>
+
+    <insert id="insertInventoryTransport" parameterType="net.neurolines.genai.model.genai.IvInventoryTransport">
+        INSERT INTO IV_INVENTORY_TRANSPORT (
+                                            ivi_regno,
+                                            un_number,
+                                            shipping_name,
+                                            trans_hazard_class,
+                                            packing_group,
+                                            env_hazard,
+                                            type_fire_action,
+                                            type_still_action
+        ) VALUES (
+            #{iviRegno},
+            #{unNumber},
+            #{shippingName},
+            #{transHazardClass},
+            #{packingGroup},
+            #{envHazard},
+            #{typeFireAction},
+            #{typeStillAction}
+        )
+    </insert>
+
+    <insert id="insertInventoryFileInfo" parameterType="net.neurolines.genai.model.genai.IvInventoryFile">
+        INSERT INTO IV_INVENTORY_FILE
+        (
+            ivi_regno,
+            org_filename,
+            file_name,
+            status,
+         reg_ymd
+        ) VALUES (
+                     #{iviRegno},
+                     #{orgFilename},
+                     #{fileName},
+                     '1',
+                     CAST(DATE_FORMAT(CURDATE(), '%Y%m%d') AS UNSIGNED)
+                 )
+    </insert>
+
+    <update id="updateInventoryChemical" parameterType="net.neurolines.genai.model.genai.IvInventoryChemical">
+        UPDATE IV_INVENTORY_CHEMICAL
+        <set>
+            <if test="formula != null and formula != ''">formula = #{formula},</if>
+            <if test="chmicalName != null and chmicalName != ''">chmical_name = #{chmicalName},</if>
+            <if test="casNo != null and casNo != ''">cas_no = #{casNo},</if>
+            <if test="regNo != null and regNo != ''">reg_no = #{regNo},</if>
+            <if test="percent != null and percent != ''">percent = #{percent},</if>
+            <if test="twa != null and twa != ''">twa = #{twa},</if>
+            <if test="oral != null and oral != ''">oral = #{oral},</if>
+            <if test="dermal != null and dermal != ''">dermal = #{dermal},</if>
+            <if test="inhalation != null and inhalation != ''">inhalation = #{inhalation},</if>
+            <if test="inhalationGas != null and inhalationGas != ''">inhalation_gas = #{inhalationGas},</if>
+            <if test="inhalationSteam != null and inhalationSteam != ''">inhalation_steam = #{inhalationSteam},</if>
+            <if test="inhalationMist != null and inhalationMist != ''">inhalation_mist = #{inhalationMist},</if>
+            <if test="skinCorrosion != null and skinCorrosion != ''">skin_corrosion = #{skinCorrosion},</if>
+            <if test="eyeDamage != null and eyeDamage != ''">eye_damage = #{eyeDamage},</if>
+            <if test="respiratoryIrritability != null and respiratoryIrritability != ''">respiratory_irritability = #{respiratoryIrritability},</if>
+            <if test="skinSensitivity != null and skinSensitivity != ''">skin_sensitivity = #{skinSensitivity},</if>
+            <if test="mutagenicity != null and mutagenicity != ''">mutagenicity = #{mutagenicity},</if>
+            <if test="carcinogenicity != null and carcinogenicity != ''">carcinogenicity = #{carcinogenicity},</if>
+            <if test="reproductiveToxicity != null and reproductiveToxicity != ''">reproductive_toxicity = #{reproductiveToxicity},</if>
+            <if test="targetOrganToxicitySingle != null and targetOrganToxicitySingle != ''">target_organ_toxicity_single = #{targetOrganToxicitySingle},</if>
+            <if test="targetOrganToxicityRepeat != null and targetOrganToxicityRepeat != ''">target_organ_toxicity_repeat = #{targetOrganToxicityRepeat},</if>
+            <if test="aspirationHazard != null and aspirationHazard != ''">aspiration_hazard = #{aspirationHazard},</if>
+            <if test="ecotoxicityFish != null and ecotoxicityFish != ''">ecotoxicity_fish = #{ecotoxicityFish},</if>
+            <if test="ecotoxicityInvert != null and ecotoxicityInvert != ''">ecotoxicity_invert = #{ecotoxicityInvert},</if>
+            <if test="ecotoxicityAlgae != null and ecotoxicityAlgae != ''">ecotoxicity_algae = #{ecotoxicityAlgae},</if>
+            <if test="chronicFish != null and chronicFish != ''">chronic_fish = #{chronicFish},</if>
+            <if test="chronicInvert != null and chronicInvert != ''">chronic_invert = #{chronicInvert},</if>
+            <if test="chronicAlgae != null and chronicAlgae != ''">chronic_algae = #{chronicAlgae},</if>
+            <if test="persistence != null and persistence != ''">persistence = #{persistence},</if>
+            <if test="degradability != null and degradability != ''">degradability = #{degradability},</if>
+            <if test="bioPotential != null and bioPotential != ''">bio_potential = #{bioPotential},</if>
+            <if test="bioDegradable != null and bioDegradable != ''">bio_degradable = #{bioDegradable},</if>
+            <if test="mobilityInSoil != null and mobilityInSoil != ''">mobility_in_soil = #{mobilityInSoil},</if>
+            <if test="hazardousOzne != null and hazardousOzne != ''">hazardous_ozne = #{hazardousOzne},</if>
+            <if test="otherEffect != null and otherEffect != ''">other_effect = #{otherEffect},</if>
+            <if test="nationalExrposure != null and nationalExrposure != ''">national_exrpsure = #{nationalExrposure},</if>
+            <if test="acgihReg != null and acgihReg != ''">acgih_reg = #{acgihReg},</if>
+            <if test="oshaReg != null and oshaReg != ''">osha_reg = #{oshaReg},</if>
+            <if test="bioReg != null and bioReg != ''">bio_reg = #{bioReg},</if>
+            <if test="regul1 != null and regul1 != ''">regul_1 = #{regul1},</if>
+            <if test="regul2 != null and regul2 != ''">regul_2 = #{regul2},</if>
+            <if test="regul3 != null and regul3 != ''">regul_3 = #{regul3},</if>
+            <if test="regul4 != null and regul4 != ''">regul_4 = #{regul4},</if>
+            <if test="regul5 != null and regul5 != ''">regul_5 = #{regul5},</if>
+            <if test="regul6 != null and regul6 != ''">regul_6 = #{regul6},</if>
+            <if test="regul7 != null and regul7 != ''">regul_7 = #{regul7},</if>
+            <if test="regul8 != null and regul8 != ''">regul_8 = #{regul8},</if>
+            <if test="regul9 != null and regul9 != ''">regul_9 = #{regul9},</if>
+            <if test="regul10 != null and regul10 != ''">regul_10 = #{regul10},</if>
+            <if test="regul11 != null and regul11 != ''">regul_11 = #{regul11},</if>
+            <if test="regul12 != null and regul12 != ''">regul_12 = #{regul12},</if>
+            <if test="regul13 != null and regul13 != ''">regul_13 = #{regul13},</if>
+            <if test="regul14 != null and regul14 != ''">regul_14 = #{regul14},</if>
+            <if test="regul14_1 != null and regul14_1 != ''">regul_14_1 = #{regul14_1},</if>
+            <if test="regul14_2 != null and regul14_2 != ''">regul_14_2 = #{regul14_2},</if>
+            <if test="regul14_3 != null and regul14_3 != ''">regul_14_3 = #{regul14_3},</if>
+            <if test="regul15 != null and regul15 != ''">regul_15 = #{regul15},</if>
+            <if test="regul16 != null and regul16 != ''">regul_16 = #{regul16},</if>
+            <if test="regul17 != null and regul17 != ''">regul_17 = #{regul17},</if>
+            <if test="regul18 != null and regul18 != ''">regul_18 = #{regul18},</if>
+            <if test="regul19 != null and regul19 != ''">regul_19 = #{regul19},</if>
+            <if test="regul20 != null and regul20 != ''">regul_20 = #{regul20},</if>
+            <if test="regul21 != null and regul21 != ''">regul_21 = #{regul21},</if>
+            <if test="regul22 != null and regul22 != ''">regul_22 = #{regul22},</if>
+            <if test="regul23 != null and regul23 != ''">regul_23 = #{regul23},</if>
+            <if test="regul24 != null and regul24 != ''">regul_24 = #{regul24},</if>
+            <if test="regul24_1 != null and regul24_1 != ''">regul_24_1 = #{regul24_1},</if>
+            <if test="regul24_2 != null and regul24_2 != ''">regul_24_2 = #{regul24_2},</if>
+            <if test="regul24_3 != null and regul24_3 != ''">regul_24_3 = #{regul24_3},</if>
+            <if test="regul24_4 != null and regul24_4 != ''">regul_24_4 = #{regul24_4},</if>
+            <if test="regul24_5 != null and regul24_5 != ''">regul_24_5 = #{regul24_5},</if>
+            <if test="regul24_6 != null and regul24_6 != ''">regul_24_6 = #{regul24_6},</if>
+            <if test="regul25 != null and regul25 != ''">regul_25 = #{regul25},</if>
+            <if test="regul26 != null and regul26 != ''">regul_26 = #{regul26},</if>
+            <if test="regul27 != null and regul27 != ''">regul_27 = #{regul27},</if>
+            <if test="regul28 != null and regul28 != ''">regul_28 = #{regul28},</if>
+            <if test="regul29 != null and regul29 != ''">regul_29 = #{regul29},</if>
+            <if test="regul30 != null and regul30 != ''">regul_30 = #{regul30},</if>
+            status = 1
+        </set>
+        WHERE ivi_regno = #{iviRegno}
+    </update>
+
+    <update id="updateInventory" parameterType="net.neurolines.genai.model.genai.IvInventory">
+        UPDATE IV_INVENTORY
+        <set>
+            <if test="gubun != null and gubun != ''">gubun = #{gubun},</if>
+            <if test="type != null and type != ''">type = #{type},</if>
+            <if test="productCode != null and productCode != ''">product_code = #{productCode},</if>
+            <if test="productId != null and productId != ''">product_id = #{productId},</if>
+            <if test="vendorCode != null and vendorCode != ''">vendor_code = #{vendorCode},</if>
+            <if test="msdsNo != null and msdsNo != ''">msds_no = #{msdsNo},</if>
+            <if test="productName != null and productName != ''">product_name = #{productName},</if>
+            <if test="companyName != null and companyName != ''">company_name = #{companyName},</if>
+            <if test="tel != null and tel != ''">tel = #{tel},</if>
+            <if test="word != null and word != ''">word = #{word},</if>
+            <if test="pscApr != null and pscApr != ''">psc_apr = #{pscApr},</if>
+            <if test="pscMatter != null and pscMatter != ''">psc_matter = #{pscMatter},</if>
+            <if test="pscColor != null and pscColor != ''">psc_color = #{pscColor},</if>
+            <if test="pscOdour != null and pscOdour != ''">psc_odour = #{pscOdour},</if>
+            <if test="pscOdourThreshold != null and pscOdourThreshold != ''">psc_odour_threshold = #{pscOdourThreshold},</if>
+            <if test="pscPh != null and pscPh != ''">psc_ph = #{pscPh},</if>
+            <if test="pscMeltingPoint != null and pscMeltingPoint != ''">psc_melting_point = #{pscMeltingPoint},</if>
+            <if test="pscBoilingPoint != null and pscBoilingPoint != ''">psc_boling_point = #{pscBoilingPoint},</if>
+            <if test="pscFlashPoint != null and pscFlashPoint != ''">psc_flash_point = #{pscFlashPoint},</if>
+            <if test="pscEvaporationRate != null and pscEvaporationRate != ''">psc_evaporation_rate = #{pscEvaporationRate},</if>
+            <if test="pscFlammable != null and pscFlammable != ''">psc_flammable = #{pscFlammable},</if>
+            <if test="pscExplosionMin != null and pscExplosionMin != ''">psc_explosion_min = #{pscExplosionMin},</if>
+            <if test="pscExplosionMax != null and pscExplosionMax != ''">psc_explosion_max = #{pscExplosionMax},</if>
+            <if test="pscAporPressure != null and pscAporPressure != ''">psc_apor_pressure = #{pscAporPressure},</if>
+            <if test="pscSolubility != null and pscSolubility != ''">psc_solubility = #{pscSolubility},</if>
+            <if test="pscVapourDensity != null and pscVapourDensity != ''">psc_vapour_density = #{pscVapourDensity},</if>
+            <if test="pscRelativeDensity != null and pscRelativeDensity != ''">psc_relative_density = #{pscRelativeDensity},</if>
+            <if test="pscPartitionCoefficient != null and pscPartitionCoefficient != ''">psc_partition_coefficient = #{pscPartitionCoefficient},</if>
+            <if test="pscAutoTemperature != null and pscAutoTemperature != ''">psc_auto_temperature = #{pscAutoTemperature},</if>
+            <if test="pscDecompositionTemperature != null and pscDecompositionTemperature != ''">psc_decomposition_temperature = #{pscDecompositionTemperature},</if>
+            <if test="pscViscosity != null and pscViscosity != ''">psc_viscosity = #{pscViscosity},</if>
+            <if test="pscMolecularWeight != null and pscMolecularWeight != ''">psc_molecular_weight = #{pscMolecularWeight},</if>
+            <if test="version != null and version != ''">version = #{version},</if>
+            <if test="firstWriteDate != null and firstWriteDate != ''">first_write_date = #{firstWriteDate},</if>
+            <if test="revisionDate != null and revisionDate != ''">revision_date = #{revisionDate},</if>
+            <if test="errorMsg != null and errorMsg != ''">error_msg = #{errorMsg},</if>
+            <if test="statusConfirm != null and statusConfirm != ''">status_confirm = #{statusConfirm},</if>
+            <if test="statusHistoryYn != null and statusHistoryYn != ''">status_history_yn = #{statusHistoryYn},</if>
+            <if test="revisionYn != null and revisionYn != ''">revision_yn = #{revisionYn},</if>
+            <if test="registrationName != null and registrationName != ''">registration_name = #{registrationName},</if>
+            <if test="activeYn != null and activeYn != ''">active_yn = #{activeYn},</if>
+            status = #{status}  </set>
+        WHERE ivi_regno = #{iviRegno}
+    </update>
+
+    <insert id="insertInventoryOrgData" parameterType="net.neurolines.genai.model.genai.IvInventoryOrgData">
+        INSERT INTO IV_INVENTORY_ORG_DATA (
+            ivi_regno,
+            org_data
+        ) VALUES (
+            #{iviRegno},
+            #{orgData}
+        )
+    </insert>
+
+</mapper>

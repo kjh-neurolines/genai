@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+  <meta property="og:title" content="NeuroChem Inventory">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="images/img_og.png">
+  <meta property="og:site_name" content="NeuroChem Inventory">
+  <meta property="og:description" content="NeuroChem Inventory">
+
+  <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+
+  <title>NeuroChem Inventory</title>
+
+  <link th:href="@{/css/common.css}" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twbs-pagination/1.4.2/jquery.twbsPagination.min.js"></script>
+  <script th:src="@{/script/setting-business-site.js}" type="text/javascript"> </script>
+
+</head>
+
+<body>
+  <div id="layoutSidenav">
+    <!-- 사이드바 -->
+    <div th:replace="~{layout/gnb :: gnbFragment}"></div>
+    <!-- //사이드바 -->
+    <div id="layoutSidenav-content">
+      <header>
+        <nav class="in-topnav navbar navbar-expand shadow-sm between fixed-top">
+          <div class="m-nav">
+            <button type="button" class="btn-mnav" id="btnMobileNav" aria-label="메뉴 열기"></button>
+            <h1><img th:src="@{/images/logo-black.svg}" /></h1>
+          </div>
+          <div class="logout-wrap">
+            <span class="logout-divider" aria-hidden="true"></span>
+            <a href="" class="ai-symbol"></a>
+            <button type="button" class="in-btn-close">
+              <span class="btn-close-text">닫기</span>
+            </button>
+          </div>
+        </nav>
+      </header>
+      <!-- 본문 -->
+      <main class="in-content py-3 py-lg-4">
+        <div class="container-fluid pt-0 in-page-wrap">
+          <div class="in-main-flex">
+            <!-- 페이지 타이틀 -->
+            <div class="title-area">
+              <h2 class="m-0 fw-bold"><img th:src="@{/images/icon/tit-setting.svg}" alt="">사용사업장 관리</h2>
+              <!-- breadcrumb -->
+              <ol class="in-breadcrumb-list" id="breadcrumb"></ol>
+              <!-- //breadcrumb -->
+            </div>
+            <!-- 본문 -->
+            <div class="container pt-0">
+              <section class="card in-card">
+                <div class="card-body p-0">
+                  <table class="table table-bordered in-form-table mb-0 in-form-table-fixed">
+                    <colgroup>
+                      <col class="col-th">
+                      <col class="col-td">
+<!--                      <col class="col-th">
+                      <col class="col-td">-->
+                      <col class="col-th">
+                      <col class="col-td">
+
+                    </colgroup>
+                    <tbody>
+                      <tr class="d-block d-md-table-row">
+                        <th class="d-block d-md-table-cell">사용사업본부</th>
+                        <td class="d-block d-md-table-cell">
+                          <select class="form-select form-select-sm w-100" id="selHqCode">
+                            <option value="">선택</option>
+                            <option th:each="d : ${headquarterList}"
+                                    th:value="${d.hqCode}"
+                                    th:text="${d.hqName}">
+                            </option>
+                          </select>
+                        </td>
+                        <th class="d-block d-md-table-cell">사용사업자명</th>
+                        <td class="d-block d-md-table-cell">
+                          <input type="text" class="form-control form-control-sm w-100" id="searchWpName">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div class="btn-area justify-content-end">
+                    <button type="button" class="btn btn-search"  id="btnSearch"><i class="bi bi-search"></i> <span class="d-none d-md-inline">조회</span></button>
+                  </div>
+                </div>
+              </section>
+
+              <section class="card in-card mt-3">
+                <div class="card-body p-0">
+                  <div class="d-flex align-items-center justify-content-between py-2 border-bottom">
+                    <div class="d-flex align-items-center gap-2">
+                      <div class="text-nowrap fw-semibold">
+                        총 <span class="fw-bold text-black" id="totalListSize">(42)</span>개 <span class="fw-bold text-black" id="listSummary">[전체 : 1/5]</span> 페이지
+                      </div>
+                      <select class="form-select form-select-sm w-auto" id="selPageSize">
+                        <option value="10" selected>10줄 보기</option>
+                        <option value="20" >20줄 보기</option>
+                        <option value="30" >30줄 보기</option>
+                        <option value="50" >50줄 보기</option>
+                      </select>
+                    </div>
+                    <button type="button" class="btn btn-primary btn-sm align-self-end" id="btnAddWorkplace">
+<!--                            data-bs-toggle="modal" data-bs-target="#SiteAdd">-->
+                      <i class="bi bi-plus" aria-hidden="true"></i><span>사용사업장 추가</span>
+                    </button>
+
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table table-bordered align-middle in-table-list mb-0" id="dataTable">
+                      <colgroup>
+                        <col style="width:8%;">
+                        <col style="width:20%;">
+                        <col style="width:20%;">
+                        <col style="width:10%;">
+                        <col style="width:8%;">
+                        <col style="width:14%;">
+                        <col style="width:10%;">
+                      </colgroup>
+                      <thead>
+                        <tr>
+                          <th>No</th>
+                          <th>사용사업본부</th>
+                          <th>사용사업장</th>
+                          <th>사용사업본부코드</th>
+                          <th>등록일</th>
+                          <th>상태</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="text-center">2</td>
+                          <td class="text-center">서울</td>
+                          <td class="text-center">S01</td>
+                          <td class="text-center">S1</td>
+                          <td class="text-center">2024-01-11</td>
+                          <td class="text-center">
+                            <button type="button" class="btn btn-sm btn-outline-primary" data-bs-toggle="modal" data-bs-target="#SiteEdit">수정</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <nav class="d-flex justify-content-center mt-3">
+                    <ul class="pagination pagination-sm align-items-center gap-2 mb-0" id="pagination">
+                      <li class="page-item disabled">
+                        <a class="page-link page-prev" href="#" aria-label="이전">
+                          <i class="bi bi-chevron-left"></i>
+                          <span class="visually-hidden">이전</span>
+                        </a>
+                      </li>
+                      <li class="page-item active"><a class="page-link border-0 bg-transparent px-2" href="#">1</a></li>
+                      <li class="page-item" aria-current="page">
+                        <a class="page-link px-2 fw-bold" href="#">2</a>
+                      </li>
+                      <li class="page-item"><a class="page-link px-2" href="#">3</a></li>
+                      <li class="page-item"><a class="page-link px-2" href="#">4</a></li>
+                      <li class="page-item"><a class="page-link px-2" href="#">5</a></li>
+                      <li class="page-item">
+                        <a class="page-link page-next" href="#" aria-label="다음">
+                          <i class="bi bi-chevron-right"></i>
+                          <span class="visually-hidden">다음</span>
+                        </a>
+                      </li>
+                    </ul>
+                  </nav>
+                </div>
+              </section>
+            </div>
+            <!-- .본문 -->
+
+            <aside class="ai-rightbar" aria-label="ChemTOS">
+              <a href="#" class="ai-rightbar-link" aria-label="Chem TOS">
+
+              </a>
+            </aside>
+
+          </div>
+        </div>
+      </main>
+      <!-- 우측 AI 배지 -->
+      <footer class="footer">
+        <div class="footer-inner">
+          <div class="footer-left">
+            <i class="ico-clock" aria-hidden="true"></i>
+            <span>2025.7.5 오전 9:00:00</span>
+          </div>
+
+          <div class="footer-right">
+            Copyright(c) 2025 NEUROCHEM ALL Rights Reserved.
+          </div>
+        </div>
+      </footer>
+
+      <!-- //본문 -->
+    </div>
+
+    <!-- 사용사업장 추가 Modal -->
+    <div class="modal fade" id="SiteAdd" tabindex="-1" aria-labelledby="SiteAdd" aria-hidden="true">
+      <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content pb-3">
+          <!-- header -->
+          <div class="modal-header">
+            <h5 class="modal-title fw-bold" id="modalRegCheckLabel">사용사업장 추가</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="닫기"></button>
+          </div>
+          <!-- body -->
+          <div class="modal-body">
+            <table class="table table-bordered in-form-table">
+              <tbody>
+                <tr class="d-block d-md-table-row">
+                  <th class="d-block d-md-table-cell req">사용사업본부</th>
+                  <td class="d-block d-md-table-cell">
+                    <select class="form-select form-select-sm" id="addHqCode">
+                      <option th:each="d : ${headquarterList}"
+                              th:value="${d.hqCode}"
+                              th:text="${d.hqName}">
+                      </option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="d-block d-md-table-cell req">사용사업장</th>
+                  <td class="d-block d-md-table-cell">
+                    <input type="text" class="form-control form-control-sm" id="addWpName">
+                  </td>
+                </tr>
+                <tr>
+                  <th class="d-block d-md-table-cell req">사용사업장 코드</th>
+                  <td class="d-block d-md-table-cell">
+                    <input type="text" class="form-control form-control-sm" id="addWpCode">
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="d-flex gap-2 justify-content-center mt-2">
+              <button type="button" class="btn btn-outline-primary px-4" data-bs-dismiss="modal">취소</button>
+              <button type="button" class="btn btn-primary px-4" id="modalWorkplaceAddBtn">등록</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <!-- // 사용사업본부 추가 Modal -->
+    <!-- 사용사업장 수정 Modal -->
+    <div class="modal fade" id="SiteEdit" tabindex="-1" aria-labelledby="SiteEdit" aria-hidden="true">
+      <div class="modal-dialog modal-md modal-dialog-centered">
+        <div class="modal-content pb-3">
+          <!-- header -->
+          <div class="modal-header">
+            <h5 class="modal-title fw-bold" id="modalRegCheckLabel">사용사업장 수정</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="닫기"></button>
+          </div>
+          <!-- body -->
+          <div class="modal-body">
+            <table class="table table-bordered in-form-table">
+              <tbody>
+                <tr class="d-block d-md-table-row">
+                  <th class="d-block d-md-table-cell req">사용사업본부</th>
+                  <td class="d-block d-md-table-cell">
+                    <select class="form-select form-select-sm" disabled id="modHqCode">
+                      <option th:each="d : ${headquarterList}"
+                              th:value="${d.hqCode}"
+                              th:text="${d.hqName}">
+                      </option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <th class="d-block d-md-table-cell req">사용사업장</th>
+                  <td class="d-block d-md-table-cell">
+                    <input type="text" class="form-control form-control-sm" id="modWpName">
+                  </td>
+                </tr>
+                <tr>
+                  <th class="d-block d-md-table-cell req">사용사업장 코드</th>
+                  <td class="d-block d-md-table-cell text-start" id="modWpCode">
+                    H01
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="d-flex gap-2 justify-content-center mt-2">
+              <button type="button" class="btn btn-outline-primary px-4" data-bs-dismiss="modal">취소</button>
+              <button type="button" class="btn btn-outline-primary px-4" onclick="fnUpdateWorkplace(0);">삭제</button>
+              <button type="button" class="btn btn-primary px-4" onclick="fnUpdateWorkplace(1)">수정</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- // 사용사업본부 수정 Modal -->
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+
+  <script th:src="@{/js/scripts.js}" defer></script>
+  <script th:src="@{/js/breadcrumb.js}" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script th:src="@{/js/chart.js}" defer></script>
+
+
+</body>
+
+</html>

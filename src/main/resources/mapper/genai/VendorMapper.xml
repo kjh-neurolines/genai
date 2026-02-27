@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.neurolines.genai.dao.genai.VendorDao">
+    <select id="selectVendorList" parameterType="java.util.Map"
+            resultType="net.neurolines.genai.model.genai.MaVendor">
+        SELECT
+        VENDOR_CODE as vendorCode,
+        VENDOR_NAME as vendorName,
+        MANAGER as manager,
+        TEL as tel,
+        EMAIL as email,
+        MANAGER_TEL as managerTel,
+        USER_COMPANY_CODE as userCompanyCode,
+        STATUS as status,
+        REG_DATE as regDate
+        FROM MA_VENDOR
+        WHERE 1 = 1
+        <if test="vendorCode != null and vendorCode != ''">
+            AND vendor_code LIKE CONCAT('%', #{vendorCode}, '%')
+        </if>
+        <if test="vendorName  != null and vendorName != ''">
+            AND vendor_name LIKE CONCAT('%', #{vendorName}, '%')
+        </if>
+        <if test="userCompanyCode != null and userCompanyCode != ''">
+            and user_company_code = #{userCompanyCode}
+        </if>
+        <if test="userCompanyCode == null">
+            and user_company_code IS NULL
+        </if>
+        <if test="status != null and status != ''">
+            and status = #{status}
+        </if>
+    </select>
+
+    <insert id="insertVendor" parameterType="net.neurolines.genai.model.genai.MaVendor">
+        INSERT INTO MA_VENDOR (VENDOR_CODE, VENDOR_NAME, MANAGER, TEL, EMAIL, MANAGER_TEL, user_company_code,  STATUS, REG_DATE)
+        VALUES (
+                   #{vendorCode},
+                   #{vendorName},
+                   #{manager},
+                   #{tel},
+                   #{email},
+                   #{managerTel},
+                   #{userCompanyCode},
+                   1,
+                   CAST(DATE_FORMAT(CURDATE(), '%Y%m%d') AS UNSIGNED)
+               )
+    </insert>
+
+    <select id="selectVendorByVendorCode" parameterType="java.util.Map"
+            resultType="net.neurolines.genai.model.genai.MaVendor">
+        SELECT
+        VENDOR_CODE as vendorCode,
+        VENDOR_NAME as vendorName,
+        MANAGER as manager,
+        TEL as tel,
+        EMAIL as email,
+        MANAGER_TEL as managerTel,
+        USER_COMPANY_CODE as userCompanyCode,
+        STATUS as status,
+        REG_DATE as regDate
+        FROM MA_VENDOR
+        WHERE 1 = 1
+        AND vendor_code = #{vendorCode}
+        <if test="userCompanyCode != null and userCompanyCode != ''">
+            and user_company_code = #{userCompanyCode}
+        </if>
+        <if test="userCompanyCode == null">
+            and user_company_code IS NULL
+        </if>
+        <if test="vendorName  != null and vendorName != ''">
+            AND vendor_name = #{vendorName}
+        </if>
+    </select>
+
+    <update id="updateVendor" parameterType="net.neurolines.genai.model.genai.MaVendor">
+        UPDATE MA_VENDOR
+        SET
+        VENDOR_CODE = #{vendorCode},
+        VENDOR_NAME = #{vendorName},
+        MANAGER = #{manager},
+        TEL = #{tel},
+        EMAIL = #{email},
+        MANAGER_TEL = #{managerTel},
+        status = #{status}
+        WHERE
+        vendor_code = #{vendorCode}
+        <if test="userCompanyCode != null and userCompanyCode != ''">
+            and user_company_code = #{userCompanyCode}
+        </if>
+        <if test="userCompanyCode == null">
+            and user_company_code IS NULL
+        </if>
+    </update>
+
+    <delete id="deleteVendor"  parameterType="java.util.Map">
+        DELETE FROM MA_VENDOR
+            WHERE 1 = 1
+            AND vendor_name = #{vendoCode}
+        <if test="userCompanyCode != null and userCompanyCode != ''">
+            and user_company_code = #{userCompanyCode}
+        </if>
+        <if test="userCompanyCode == null">
+            and user_company_code IS NULL
+        </if>
+    </delete>
+
+    <select id="getVendorInfoByProductCode" resultType="java.util.Map"
+            parameterType="java.lang.String">
+        SELECT
+            P.product_id as productId,
+            P.vendor_code as vendorCode,
+            V.vendor_name as vendorName
+        FROM
+            MA_PRODUCT_ID P
+                LEFT OUTER JOIN
+            MA_VENDOR V
+        ON (
+        P.user_company_code = V.user_company_code
+        OR (P.user_company_code IS NULL AND V.user_company_code IS NULl)
+        )  AND P.vendor_code = V.vendor_code
+        WHERE P.product_code = #{productCode}
+        <if test="userCompanyCode != null and userCompanyCode != ''">
+            and P.user_company_code = #{userCompanyCode}
+        </if>
+        <if test="userCompanyCode == null">
+            and P.user_company_code IS NULL
+        </if>
+    </select>
+</mapper>

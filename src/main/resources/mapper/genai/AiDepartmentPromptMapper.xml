@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.neurolines.genai.dao.genai.AiDepartmentPromptDao">
+    
+    <select id="selectDepartmentPrompt" parameterType="java.util.Map"
+            resultType="net.neurolines.genai.model.genai.AiDepartmentPrompt">
+        SELECT
+            adip_regno as adipRegNo,
+            dm_code as dmCode,
+            email as email,
+            user_company_code as userCompanyCode,
+            prompt as prompt,
+            reg_ymd as regYmd,
+            status as status
+        FROM AI_DEPARTMENT_PROMPT
+        WHERE status = 1
+            <if test="dmCode != null and dmCode != ''">
+                AND dm_code = #{dmCode}
+            </if>
+            <if test="userCompanyCode != null and userCompanyCode != ''">
+                AND user_company_code = #{userCompanyCode}
+            </if>
+          ORDER BY adipRegNo DESC
+        </select>
+    
+</mapper> 

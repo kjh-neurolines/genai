@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      th:fragment="gnbFragment">
+
+  <!-- 사이드바 -->
+  <aside class="in-sidebar" id="inSidebar">
+    <h1 class="in-sidebar-head">
+      <img th:src="@{/images/logo.svg}" alt="NeuroChem Inventory" class="logo-full" />
+      <img th:src="@{/images/logo-symbol.svg}" alt="NeuroChem Inventory" class="logo-symbol" />
+      <button type="button" class="btn-snav-close" id="btnSidebarClose" aria-label="메뉴 닫기"></button>
+    </h1>
+
+    <button type="button" class="in-sidebar-toggle" id="btnSidebarToggle" aria-label="사이드바 접기/펼치기"></button>
+    <nav class="in-sidebar-nav" aria-label="기본메뉴">
+      <a class="in-nav-link " href="dashboard" data-side-tooltip="1" data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboard"
+         th:classappend="${page == 'dashboard'} ? 'active' : ''" >
+          <span class="in-icon-box">
+            <img th:src="@{/images/icon/ico-dashboard.svg}" class="icon-default" alt="">
+            <img th:src="@{/images/icon/ico-dashboard-active.svg}" class="icon-active" alt="">
+          </span>
+        <span class="in-nav-text">Dashboard</span>
+        <span class="in-nav-arrow"></span>
+      </a>
+      <a class="in-nav-link" href="inventory-register" data-side-tooltip="1" data-bs-toggle="tooltip" data-bs-placement="right" title="Inventory 등록"
+         th:classappend="${page == 'inventory-register'} ? 'active' : ''" >
+          <span class="in-icon-box">
+            <img th:src="@{/images/icon/ico-Inventory.svg}" class="icon-default" alt="">
+            <img th:src="@{/images/icon/ico-Inventory-active.svg}" class="icon-active" alt="">
+          </span>
+        <span class="in-nav-text">Inventory 등록</span>
+        <span class="in-nav-arrow" aria-hidden="true"></span>
+      </a>
+      <a class="in-nav-link" href="ai-auto-register" data-side-tooltip="1" data-bs-toggle="tooltip" data-bs-placement="right" title="AI 자동등록"
+         th:classappend="${page == 'ai-auto-register'} ? 'active' : ''" >
+          <span class="in-icon-box">
+            <img th:src="@{/images/icon/ico-aiautomatic.svg}" class="icon-default" alt="">
+            <img th:src="@{/images/icon/ico-aiautomatic-active.svg}" class="icon-active" alt="">
+          </span>
+        <span class="in-nav-text">AI 자동등록</span>
+        <span class="in-nav-arrow" aria-hidden="true"></span>
+      </a>
+      <a class="in-nav-link" href="ai-auto-register-verify" data-side-tooltip="1" data-bs-toggle="tooltip" data-bs-placement="right" title="AI 자동 등록 검증"
+         th:classappend="${page == 'ai-auto-register-verify'} ? 'active' : ''" >
+
+        <span class="in-icon-box">
+            <img th:src="@{/images/icon/ico-aicheck.svg}" class="icon-default" alt="">
+            <img th:src="@{/images/icon/ico-aicheck-active.svg}" class="icon-active" alt="">
+          </span>
+        <span class="in-nav-text">AI 자동 등록 검증</span>
+        <span class="in-nav-arrow" aria-hidden="true"></span>
+      </a>
+      <a class="in-nav-link" href="inventory-list" data-side-tooltip="1" data-bs-toggle="tooltip" data-bs-placement="right" title="Inventory"
+         th:classappend="${page == 'inventory-list'} ? 'active' : ''" >
+          <span class="in-icon-box">
+            <img th:src="@{/images/icon/ico-database.svg}" class="icon-default" alt="">
+            <img th:src="@{/images/icon/ico-database-active.svg}" class="icon-active" alt="">
+          </span>
+        <span class="in-nav-text">Inventory</span>
+        <span class="in-nav-arrow" aria-hidden="true"></span>
+      </a>
+      <div class="in-nav-group" data-nav="setting"
+           th:classappend="${setting == true} ? 'is-active' : ''" >
+        <button type="button" class="in-nav-link in-nav-toggle" aria-expanded="false" aria-controls="subnav-setting">
+            <span class="in-icon-box">
+              <img th:src="@{/images/icon/ico-setting.svg}" class="icon-default" alt="">
+              <img th:src="@{/images/icon/ico-setting-active.svg}" class="icon-active" alt="">
+            </span>
+          <span class="in-nav-text">Setting</span>
+          <span class="in-nav-arrow" aria-hidden="true"></span>
+        </button>
+        <div class="in-subnav" id="subnav-setting" role="region" aria-label="Setting 하위메뉴">
+          <a class="in-sub-link" href="setting-business-unit">사용사업본부 관리</a>
+          <a class="in-sub-link" href="setting-business-site">사용사업장 관리</a>
+          <a class="in-sub-link" href="setting-department">부서 관리</a>
+          <a class="in-sub-link" href="setting-material-code">자재코드 관리</a>
+          <a class="in-sub-link" href="setting-vendor">벤더 관리</a>
+          <a class="in-sub-link" href="material-department">자재 ID 부서 매핑 관리</a>
+          <a class="in-sub-link" href="setting-user">사용자 관리</a>
+          <a class="in-sub-link" href="setting-permission">권한 관리</a>
+        </div>
+      </div>
+    </nav>
+    <div class="in-sidebar-footer">
+      <a class="in-user" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="박경원">
+        <span class="in-user-ico" aria-hidden="true"></span>
+        <span class="in-nav-text">박경원</span>
+      </a>
+    </div>
+  </aside>
+  <div class="in-overlay" id="inOverlay" aria-hidden="true"></div>
+</html>

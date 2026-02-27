@@ -1,0 +1,4 @@
+
+  <button type="button" class="user-menu-item">설정</button>
+  <button type="button" class="user-menu-item" id="btnLogin" th:if="${email == null or email == ''}">로그인</button>
+  <button type="button" class="user-menu-item" id="btnLogout" th:if="${email != null and email != ''}">로그아웃</button>

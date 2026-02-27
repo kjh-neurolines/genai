@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+  <meta property="og:title" content="NeuroChem Inventory">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="images/img_og.png">
+  <meta property="og:site_name" content="NeuroChem Inventory">
+  <meta property="og:description" content="NeuroChem Inventory">
+
+  <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+
+  <title>NeuroChem Inventory</title>
+
+  <link th:href="@{/css/common.css}" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+</head>
+
+<body>
+  <div id="layoutSidenav">
+    <!-- 사이드바 -->
+    <div th:replace="~{layout/gnb :: gnbFragment}"></div>
+    <!-- //사이드바 -->
+    <div id="layoutSidenav-content">
+
+      <header>
+        <nav class="in-topnav navbar navbar-expand shadow-sm between fixed-top">
+          <div class="m-nav">
+            <button type="button" class="btn-mnav" id="btnMobileNav" aria-label="메뉴 열기"></button>
+            <h1><img th:src="@{/images/logo-black.svg}" /></h1>
+          </div>
+
+          <div class="logout-wrap">
+            <span class="logout-divider" aria-hidden="true"></span>
+            <a href="" class="ai-symbol"></a>
+            <button type="button" class="in-btn-close">
+              <span class="btn-close-text">닫기</span>
+            </button>
+          </div>
+        </nav>
+      </header>
+      <!-- 본문 -->
+      <main class="in-content py-3 py-lg-4">
+        <div class="container-fluid pt-0 in-page-wrap">
+          <div class="in-main-flex">
+            <!-- 페이지 타이틀 -->
+            <div class="title-area">
+              <h2 class="m-0 fw-bold"><img th:src="@{/images/icon/tit-inventory_register.svg}" alt="">Inventory 등록</h2>
+              <!-- breadcrumb -->
+              <ol class="in-breadcrumb-list" id="breadcrumb"></ol>
+              <!-- //breadcrumb -->
+            </div>
+            <!-- 본문 -->
+            <div class="container pt-0">
+              <section class="card in-card">
+                <div class="card-body p-0">
+                  <div class="d-flex align-items-center justify-content-between mb-2">
+                    <h5 class="section-title m-0">기본정보</h5>
+                  </div>
+                  <table class="table table-bordered in-form-table mb-0">
+                    <tbody>
+                      <tr class="d-block d-md-table-row">
+                        <th class="d-block d-md-table-cell">MSDS 관리번호</th>
+                        <td class="d-block d-md-table-cell">
+                          <input type="text" class="form-control form-control-sm">
+                        </td>
+                        <th class="d-block d-md-table-cell req">제품성상</th>
+                        <td class="d-block d-md-table-cell">
+                          <select class="form-select form-select-sm">
+                            <option>고체</option>
+                            <option>액체</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr class="d-block d-md-table-row">
+                        <th class="d-block d-md-table-cell">자재/제품코드</th>
+                        <td class="d-block d-md-table-cell">
+                          <input type="text" class="form-control form-control-sm">
+                        </td>
+                        <th class="d-block d-md-table-cell req">자재/제품명</th>
+                        <td class="d-block d-md-table-cell">
+                          <input type="text" class="form-control form-control-sm">
+                        </td>
+                      </tr>
+                      <tr class="d-block d-md-table-row">
+                        <th class="d-block d-md-table-cell req">품목구분</th>
+                        <td class="d-block d-md-table-cell">
+                          <select class="form-select form-select-sm">
+                            <option>선택</option>
+                          </select>
+                        </td>
+                        <th class="d-block d-md-table-cell req">제조/내수/수입</th>
+                        <td class="d-block d-md-table-cell">
+                          <select class="form-select form-select-sm">
+                            <option>선택</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr class="d-block d-md-table-row">
+                        <th class="d-block d-md-table-cell req">사용사업본부</th>
+                        <td class="d-block d-md-table-cell">
+                          <select class="form-select form-select-sm">
+                            <option>선택</option>
+                          </select>
+                        </td>
+                        <th class="d-block d-md-table-cell req">사용사업장</th>
+                        <td class="d-block d-md-table-cell">
+                          <select class="form-select form-select-sm">
+                            <option>선택</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr class="d-block d-md-table-row">
+                        <th class="d-block d-md-table-cell">사용부서</th>
+                        <td class="d-block d-md-table-cell">
+                          <select class="form-select form-select-sm">
+                            <option>선택</option>
+                          </select>
+                        </td>
+                        <th class="d-block d-md-table-cell">활성화</th>
+                        <td class="d-block d-md-table-cell">
+                          <div class="d-flex align-items-center gap-3">
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" name="use_yn" id="use_y" value="Y">
+                              <label class="form-check-label" for="use_y">Y</label>
+                            </div>
+                            <div class="form-check">
+                              <input class="form-check-input" type="radio" name="use_yn" id="use_n" value="N">
+                              <label class="form-check-label" for="use_n">N</label>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </section>
+
+              <section class="card in-card mt-3">
+                <div class="card-body p-0">
+                  <div class="d-flex align-items-center justify-content-between mb-2">
+                    <h5 class="section-title m-0">함유물질정보</h5>
+                    <button type="button" class="btn btn-primary btn-sm align-self-end" data-bs-toggle="modal" data-bs-target="#RegCheckAdd">
+                      <i class="bi bi-plus"></i> 추가하기
+                    </button>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table table-bordered align-middle in-table-list mb-0">
+                      <colgroup>
+                        <col style="width:220px;">
+                        <col>
+                        <col style="width:220px;">
+                        <col style="width:220px;">
+                        <col style="width:220px;">
+                        <col style="width:150px;">
+                      </colgroup>
+                      <thead>
+                        <tr>
+                          <th scope="col">CAS No.</th>
+                          <th scope="col">물질명(영문)</th>
+                          <th scope="col">함량(%)</th>
+                          <th scope="col">GHS DB 등록</th>
+                          <th scope="col">불순물여부</th>
+                          <th scope="col">규제보기</th>
+                          <th scope="col">삭제</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><input type="text" class="form-control form-control-sm" value="50-00-0"></td>
+                          <td><input type="text" class="form-control form-control-sm" value="formalin"></td>
+                          <td><input type="number" class="form-control form-control-sm" value="80" min="0" max="100" step="0.01"></td>
+                          <td class="text-center">Y</td>
+                          <td class="text-center">Y</td>
+                          <td class="text-center">
+                            <button type="button" class="btn btn-dark btn-sm" data-bs-toggle="modal" data-bs-target="#RegCheck">규제확인</button>
+                          </td>
+                          <td class="text-center">
+                            <button type="button" class="btn btn-outline-danger btn-sm">삭제</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </section>
+
+              <section class="card in-card mt-3">
+                <div class="card-body p-0">
+                  <div class="d-flex align-items-center justify-content-between mb-2">
+                    <h5 class="section-title m-0">파일첨부</h5>
+                    <button type="button" class="btn btn-primary btn-sm align-self-end" data-bs-toggle="modal" data-bs-target="#FileAttach">
+                      <i class="bi bi-paperclip" aria-hidden="true"></i><span>파일첨부</span>
+                    </button>
+                  </div>
+                  <div class="table-responsive">
+                    <table class="table table-bordered align-middle in-table-list mb-0">
+                      <colgroup>
+                        <col style="width:220px;">
+                        <col>
+                        <col style="width:220px;">
+                        <col style="width:220px;">
+                        <col style="width:220px;">
+                        <col style="width:150px;">
+                      </colgroup>
+                      <thead>
+                        <tr>
+                          <th scope="col">구분</th>
+                          <th scope="col">파일명</th>
+                          <th scope="col">국가</th>
+                          <th scope="col">언어</th>
+                          <th scope="col">등록일</th>
+                          <th scope="col">삭제</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td class="text-start">MSDS</td>
+                          <td class="text-start">파이버.pdf</td>
+                          <td>USA</td>
+                          <td>
+                            en
+                          </td>
+                          <td class="text-center">
+                            2025-01-22
+                          </td>
+                          <td class="text-center">
+                            <button type="button" class="btn btn-outline-danger btn-sm">삭제</button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </section>
+            </div>
+            <!-- .본문 -->
+
+            <aside class="ai-rightbar" aria-label="ChemTOS">
+              <a href="#" class="ai-rightbar-link" aria-label="Chem TOS">
+
+              </a>
+            </aside>
+
+          </div>
+        </div>
+      </main>
+      <!-- 우측 AI 배지 -->
+      <footer class="footer">
+        <div class="footer-inner">
+          <div class="footer-left">
+            <i class="ico-clock" aria-hidden="true"></i>
+            <span>2025.7.5 오전 9:00:00</span>
+          </div>
+
+          <div class="footer-right">
+            Copyright(c) 2025 NEUROCHEM ALL Rights Reserved.
+          </div>
+        </div>
+      </footer>
+
+
+      <!-- //본문 -->
+    </div>
+
+  </div>
+
+  <!-- 함유물질정보 추가 Modal -->
+  <div class="modal fade" id="RegCheckAdd" tabindex="-1" aria-labelledby="RegCheckAdd" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollabl">
+      <div class="modal-content">
+        <!-- header -->
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold" id="modalRegCheckLabel">함유물질정보 추가</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="닫기"></button>
+        </div>
+        <!-- body -->
+        <div class="modal-body">
+          <!-- 검색 영역 -->
+          <div class="reg-search">
+            <div class="reg-search-label">물질검색</div>
+            <div class="reg-search-input">
+              <input type="text" class="form-control form-control-sm" placeholder="" />
+            </div>
+            <button type="button" class="btn btn-primary btn-sm d-inline-flex align-items-center justify-content-center gap-2">
+              <i class="bi bi-search"></i>
+              검색
+            </button>
+          </div>
+          <hr class="my-3">
+          <!-- 테이블 -->
+          <div class="table-responsive">
+            <table class="table table-bordered align-middle in-table-list mb-0">
+              <colgroup>
+                <col style="width:140px;">
+                <col style="width:auto;">
+                <col style="width:140px;">
+                <col style="width:160px;">
+                <col style="width:110px;">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>CAS No.</th>
+                  <th>물질명</th>
+                  <th>Ke No.</th>
+                  <th>EC No.</th>
+                  <th>선택</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>50-00-0</td>
+                  <td class="text-start">
+                    <select class="form-select reg-select">
+                      <option selected>Text</option>
+                      <option>Formaldehyde</option>
+                      <option>Sample 2</option>
+                    </select>
+                  </td>
+                  <td>KE-17074</td>
+                  <td>200-001-8</td>
+                  <td><button type="button" class="btn btn-dark btn-sm">선택</button></td>
+                </tr>
+                <tr>
+                  <td>50-00-0</td>
+                  <td class="text-start">
+                    <select class="form-select reg-select">
+                      <option selected>Text</option>
+                      <option>Formaldehyde</option>
+                      <option>Sample 2</option>
+                    </select>
+                  </td>
+                  <td>KE-17074</td>
+                  <td>200-001-8</td>
+                  <td><button type="button" class="btn btn-dark btn-sm">선택</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="text-center mt-4">
+            <button type="button" class="btn btn-outline-primary px-4" data-bs-dismiss="modal">닫기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- // 함유물질정보 추가 Modal -->
+
+  <!-- 규제확인 Modal -->
+  <div class="modal fade" id="RegCheck" tabindex="-1" aria-labelledby="RegCheck" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+      <div class="modal-content">
+        <!-- header -->
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold" id="modalRegCheckLabel">50-00-0 규제확인</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="닫기"></button>
+        </div>
+        <!-- body -->
+        <div class="modal-body">
+          <!-- Tabs -->
+          <ul class="nav nav-tabs in-tabs" id="regionTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="tab-kr" data-bs-toggle="tab" data-bs-target="#pane-kr" type="button" role="tab" aria-controls="pane-kr" aria-selected="true">한국</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="tab-eu" data-bs-toggle="tab" data-bs-target="#pane-eu" type="button" role="tab" aria-controls="pane-eu" aria-selected="false">유럽</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="tab-us" data-bs-toggle="tab" data-bs-target="#pane-us" type="button" role="tab" aria-controls="pane-us" aria-selected="false">미국</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="tab-cn" data-bs-toggle="tab" data-bs-target="#pane-cn" type="button" role="tab" aria-controls="pane-cn" aria-selected="false">중국</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="tab-jp" data-bs-toggle="tab" data-bs-target="#pane-jp" type="button" role="tab" aria-controls="pane-jp" aria-selected="false">일본</button>
+            </li>
+          </ul>
+          <!-- Tab contents -->
+          <div class="tab-content pt-4" id="regionTabContent">
+            <div class="tab-pane fade show active" id="pane-kr" role="tabpanel" aria-labelledby="tab-kr">
+              <div class="table-responsive">
+                <table class="table table-bordered align-middle in-table-list mb-0">
+                  <colgroup>
+                    <col style="width:33.3%;">
+                    <col style="width:33.3%;">
+                    <col style="width:33.3%;">
+                  </colgroup>
+                  <thead>
+                    <tr>
+                      <th>규제항목</th>
+                      <th>법규</th>
+                      <th>해당여부</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>유독물질</td>
+                      <td>화학물질 관리법</td>
+                      <td>Y</td>
+                    </tr>
+                    <tr>
+                      <td>허가물질</td>
+                      <td>화학물질 관리법</td>
+                      <td>Y</td>
+                    </tr>
+                    <tr>
+                      <td>제한물질</td>
+                      <td>화학물질 관리법</td>
+                      <td>Y</td>
+                    </tr>
+                    <tr>
+                      <td>유독물질</td>
+                      <td>화학물질 관리법</td>
+                      <td>Y</td>
+                    </tr>
+                    <tr>
+                      <td>허가물질</td>
+                      <td>화학물질 관리법</td>
+                      <td>Y</td>
+                    </tr>
+                    <tr>
+                      <td>제한물질</td>
+                      <td>화학물질 관리법</td>
+                      <td>Y</td>
+                    </tr>
+                    <tr>
+                      <td>유독물질</td>
+                      <td>화학물질 관리법</td>
+                      <td>Y</td>
+                    </tr>
+                    <tr>
+                      <td>허가물질</td>
+                      <td>화학물질 관리법</td>
+                      <td>Y</td>
+                    </tr>
+                    <tr>
+                      <td>제한물질</td>
+                      <td>화학물질 관리법</td>
+                      <td>Y</td>
+                    </tr>
+                    <tr>
+                      <td>유독물질</td>
+                      <td>화학물질 관리법</td>
+                      <td>Y</td>
+                    </tr>
+                    <tr>
+                      <td>허가물질</td>
+                      <td>화학물질 관리법</td>
+                      <td>Y</td>
+                    </tr>
+                    <tr>
+                      <td>제한물질</td>
+                      <td>화학물질 관리법</td>
+                      <td>Y</td>
+                    </tr>
+                    <tr>
+                      <td>유독물질</td>
+                      <td>화학물질 관리법</td>
+                      <td>Y</td>
+                    </tr>
+                    <tr>
+                      <td>허가물질</td>
+                      <td>화학물질 관리법</td>
+                      <td>Y</td>
+                    </tr>
+                    <tr>
+                      <td>제한물질</td>
+                      <td>화학물질 관리법</td>
+                      <td>Y</td>
+                    </tr>
+                    <tr>
+                      <td>유독물질</td>
+                      <td>화학물질 관리법</td>
+                      <td>Y</td>
+                    </tr>
+                    <tr>
+                      <td>허가물질</td>
+                      <td>화학물질 관리법</td>
+                      <td>Y</td>
+                    </tr>
+                    <tr>
+                      <td>제한물질</td>
+                      <td>화학물질 관리법</td>
+                      <td>Y</td>
+                    </tr>
+                    <tr>
+                      <td>유독물질</td>
+                      <td>화학물질 관리법</td>
+                      <td>Y</td>
+                    </tr>
+                    <tr>
+                      <td>허가물질</td>
+                      <td>화학물질 관리법</td>
+                      <td>Y</td>
+                    </tr>
+                    <tr>
+                      <td>제한물질</td>
+                      <td>화학물질 관리법</td>
+                      <td>Y</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="pane-eu" role="tabpanel" aria-labelledby="tab-eu">유럽 콘텐츠</div>
+            <div class="tab-pane fade" id="pane-us" role="tabpanel" aria-labelledby="tab-us">미국 콘텐츠</div>
+            <div class="tab-pane fade" id="pane-cn" role="tabpanel" aria-labelledby="tab-cn">중국 콘텐츠</div>
+            <div class="tab-pane fade" id="pane-jp" role="tabpanel" aria-labelledby="tab-jp">일본 콘텐츠</div>
+          </div>
+          <div class="text-center mt-4">
+            <button type="button" class="btn btn-outline-primary px-4" data-bs-dismiss="modal">닫기</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- // 규제확인 Modal -->
+
+  <!-- 파일 업로드 Modal -->
+  <div class="modal fade" id="FileAttach" tabindex="-1" aria-labelledby="FileAttach" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <!-- header -->
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold" id="modalRegCheckLabel">파일 업로드</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="닫기"></button>
+        </div>
+        <!-- body -->
+        <div class="modal-body">
+          <table class="table table-bordered in-form-table mb-0">
+            <colgroup>
+              <col style="width:33.3%;">
+              <col style="width:auto;">
+            </colgroup>
+            <tbody>
+              <tr class="d-block d-md-table-row">
+                <th class="d-block d-md-table-cell">사용부서</th>
+                <td class="d-block d-md-table-cell">
+                  <select class="form-select form-control-sm">
+                    <option selected>선택해 주세요</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </td>
+              </tr>
+              <tr class="d-block d-md-table-row">
+                <th class="d-block d-md-table-cell">언어</th>
+                <td class="d-block d-md-table-cell">
+                  <select class="form-select form-control-sm">
+                    <option selected>선택해 주세요</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </td>
+              </tr>
+              <tr class="d-block d-md-table-row">
+                <th class="d-block d-md-table-cell">파일구분</th>
+                <td class="d-block d-md-table-cell">
+                  <select class="form-select form-control-sm">
+                    <option selected>선택해 주세요</option>
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                  </select>
+                </td>
+              </tr>
+              <tr class="d-block d-md-table-row">
+                <th class="d-block d-md-table-cell">파일첨부</th>
+                <td class="d-block d-md-table-cell">
+                  <div class="file-upload-ui" data-file-ui>
+                    <input type="file" class="file-hidden" data-file-input>
+                    <input type="text" class="form-control file-text" placeholder="" readonly data-file-text>
+                    <button type="button" class="btn btn-dark btn-sm d-inline-flex align-items-center gap-1" data-file-btn>
+                      <i class="bi bi-download"></i>첨부하기
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <!-- 하단 닫기 버튼 (가운데) -->
+          <div class="text-center mt-4">
+            <button type="button" class="btn btn-outline-primary px-4" data-bs-dismiss="modal">닫기</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- //< 규제확인 Modal -->
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+
+  <script th:src="@{/js/scripts.js}" defer></script>
+  <script th:src="@{/js/breadcrumb.js}" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script th:src="@{/js/chart.js}" defer></script>
+
+
+</body>
+
+</html>

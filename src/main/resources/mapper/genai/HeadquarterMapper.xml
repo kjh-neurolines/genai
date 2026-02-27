@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.neurolines.genai.dao.genai.HeadquarterDao">
+    <select id="selectHeadquarterList" parameterType="java.util.Map"
+            resultType="net.neurolines.genai.model.genai.IvHeadQuarters">
+        SELECT
+            hq_code as hqCode,
+            hq_name as hqName,
+            user_company_code as userCompanyCode,
+            reg_ymd as regYmd,
+            status as status
+            FROM IV_HEADQUARTERS
+            WHERE 1 = 1
+        <if test="userCompanyCode != null and userCompanyCode != ''">
+            and user_company_code = #{userCompanyCode}
+        </if>
+        <if test="userCompanyCode == null">
+            and user_company_code IS NULL
+        </if>
+        <if test="hqCode != null and hqCode != ''">
+            AND hq_code = #{hqCode}
+        </if>
+        <if test="hqName != null and hqName != ''">
+            AND hq_name LIKE CONCAT('%', #{hqName}, '%')
+        </if>
+    </select>
+
+    <insert id="insertHeadquarter" parameterType="net.neurolines.genai.model.genai.IvHeadQuarters">
+        INSERT INTO IV_HEADQUARTERS (hq_code, hq_name, user_company_code, reg_ymd, status)
+        VALUES (
+                #{hqCode},
+                #{hqName},
+                #{userCompanyCode},
+                CAST(DATE_FORMAT(CURDATE(), '%Y%m%d') AS UNSIGNED),
+                1
+               )
+    </insert>
+
+    <select id="selectHeadquarterByHqCode" parameterType="java.util.Map"
+        resultType="net.neurolines.genai.model.genai.IvHeadQuarters">
+        SELECT
+        hq_code as hqCode,
+        hq_name as hqName,
+        user_company_code as userCompanyCode,
+        reg_ymd as regYmd,
+        status as status
+        FROM IV_HEADQUARTERS
+        WHERE 1 = 1
+            AND hq_code = #{hqCode}
+        <if test="userCompanyCode != null and userCompanyCode != ''">
+            and user_company_code = #{userCompanyCode}
+        </if>
+        <if test="userCompanyCode == null">
+            and user_company_code IS NULL
+        </if>
+    </select>
+
+    <update id="updateHeadquarter" parameterType="net.neurolines.genai.model.genai.IvHeadQuarters">
+        UPDATE IV_HEADQUARTERS
+        SET
+            hq_name = #{hqName},
+            status = #{status}
+        WHERE
+            hq_code = #{hqCode}
+        <if test="userCompanyCode != null and userCompanyCode != ''">
+            and user_company_code = #{userCompanyCode}
+        </if>
+        <if test="userCompanyCode == null">
+            and user_company_code IS NULL
+        </if>
+        </update>
+</mapper>

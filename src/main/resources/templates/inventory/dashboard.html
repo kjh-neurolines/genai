@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+  <meta property="og:title" content="NeuroChem Inventory">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="images/img_og.png">
+  <meta property="og:site_name" content="NeuroChem Inventory">
+  <meta property="og:description" content="NeuroChem Inventory">
+
+  <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+
+  <title>NeuroChem Inventory</title>
+
+  <link rel="stylesheet" th:href="@{/css/common.css}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+</head>
+
+<div id="layoutSidenav">
+  <!-- 사이드바 -->
+  <div th:replace="~{layout/gnb :: gnbFragment}"></div>
+  <!--  <div id="layoutSidenav">
+  &lt;!&ndash; 사이드바 &ndash;&gt;
+  <aside class="in-sidebar" id="inSidebar">
+    <h1 class="in-sidebar-head">
+      <img th:src="@{/images/logo.svg}" alt="NeuroChem Inventory" class="logo-full" />
+      <img th:src="@{/images/logo-symbol.svg}" alt="NeuroChem Inventory" class="logo-symbol" />
+      <button type="button" class="btn-snav-close" id="btnSidebarClose" aria-label="메뉴 닫기"></button>
+    </h1>
+
+    <button type="button" class="in-sidebar-toggle" id="btnSidebarToggle" aria-label="사이드바 접기/펼치기"></button>
+    <nav class="in-sidebar-nav" aria-label="기본메뉴">
+      <a class="in-nav-link" href="dashboard.html" data-side-tooltip="1" data-bs-toggle="tooltip" data-bs-placement="right" title="Dashboard">
+        <span class="in-icon-box">
+          <img th:src="@{/images/icon/ico-dashboard.svg}" class="icon-default" alt="">
+          <img th:src="@{/images/icon/ico-dashboard-active.svg}" class="icon-active" alt="">
+        </span>
+        <span class="in-nav-text">Dashboard</span>
+        <span class="in-nav-arrow"></span>
+      </a>
+      <a class="in-nav-link" href="inventory-register.html" data-side-tooltip="1" data-bs-toggle="tooltip" data-bs-placement="right" title="Inventory 등록">
+        <span class="in-icon-box">
+          <img th:src="@{/images/icon/ico-Inventory.svg}" class="icon-default" alt="">
+          <img th:src="@{/images/icon/ico-Inventory-active.svg}" class="icon-active" alt="">
+        </span>
+        <span class="in-nav-text">Inventory 등록</span>
+        <span class="in-nav-arrow" aria-hidden="true"></span>
+      </a>
+      <a class="in-nav-link" href="ai-auto-register.html" data-side-tooltip="1" data-bs-toggle="tooltip" data-bs-placement="right" title="AI 자동등록">
+        <span class="in-icon-box">
+          <img th:src="@{/images/icon/ico-aiautomatic.svg}" class="icon-default" alt="">
+          <img th:src="@{/images/icon/ico-aiautomatic-active.svg}" class="icon-active" alt="">
+        </span>
+        <span class="in-nav-text">AI 자동등록</span>
+        <span class="in-nav-arrow" aria-hidden="true"></span>
+      </a>
+      <a class="in-nav-link" href="ai-auto-register-verify.html" data-side-tooltip="1" data-bs-toggle="tooltip" data-bs-placement="right" title="AI 자동 등록 검증">
+        <span class="in-icon-box">
+          <img th:src="@{/images/icon/ico-aicheck.svg}" class="icon-default" alt="">
+          <img th:src="@{/images/icon/ico-aicheck-active.svg}" class="icon-active" alt="">
+        </span>
+        <span class="in-nav-text">AI 자동 등록 검증</span>
+        <span class="in-nav-arrow" aria-hidden="true"></span>
+      </a>
+      <a class="in-nav-link" href="inventory-list.html" data-side-tooltip="1" data-bs-toggle="tooltip" data-bs-placement="right" title="Inventory">
+        <span class="in-icon-box">
+          <img th:src="@{/images/icon/ico-database.svg}" class="icon-default" alt="">
+          <img th:src="@{/images/icon/ico-database-active.svg}" class="icon-active" alt="">
+        </span>
+        <span class="in-nav-text">Inventory</span>
+        <span class="in-nav-arrow" aria-hidden="true"></span>
+      </a>
+      <div class="in-nav-group" data-nav="setting">
+        <button type="button" class="in-nav-link in-nav-toggle" aria-expanded="false" aria-controls="subnav-setting">
+          <span class="in-icon-box">
+            <img th:src="@{/images/icon/ico-setting.svg}" class="icon-default" alt="">
+            <img th:src="@{/images/icon/ico-setting-active.svg}" class="icon-active" alt="">
+          </span>
+          <span class="in-nav-text">Setting</span>
+          <span class="in-nav-arrow" aria-hidden="true"></span>
+        </button>
+        <div class="in-subnav" id="subnav-setting" role="region" aria-label="Setting 하위메뉴">
+          <a class="in-sub-link" href="setting-business-unit.html">사용사업본부 관리</a>
+          <a class="in-sub-link" href="setting-business-site.html">사용사업장 관리</a>
+          <a class="in-sub-link" href="setting-department.html">부서 관리</a>
+          <a class="in-sub-link" href="setting-material-code.html">자재코드 관리</a>
+          <a class="in-sub-link" href="setting-vendor.html">벤더 관리</a>
+          <a class="in-sub-link" href="material-department.html">자재 ID 부서 매핑 관리</a>
+          <a class="in-sub-link" href="setting-user.html">사용자 관리</a>
+          <a class="in-sub-link" href="setting-permission.html">권한 관리</a>
+        </div>
+      </div>
+    </nav>
+    <div class="in-sidebar-footer">
+      <a class="in-user" href="#" data-bs-toggle="tooltip" data-bs-placement="right" title="박경원">
+        <span class="in-user-ico" aria-hidden="true"></span>
+        <span class="in-nav-text">박경원</span>
+      </a>
+    </div>
+  </aside>
+  <div class="in-overlay" id="inOverlay" aria-hidden="true"></div>-->
+  <!-- //사이드바 -->
+  <div id="layoutSidenav-content">
+
+      <header>
+        <nav class="in-topnav navbar navbar-expand shadow-sm between fixed-top">
+          <div class="m-nav">
+            <button type="button" class="btn-mnav" id="btnMobileNav" aria-label="메뉴 열기"></button>
+            <h1><img th:src="@{/images/logo-black.svg}" /></h1>
+          </div>
+
+          <div class="logout-wrap">
+            <span class="logout-divider" aria-hidden="true"></span>
+            <a href="" class="ai-symbol"></a>
+            <button type="button" class="in-btn-close">
+              <span class="btn-close-text">닫기</span>
+            </button>
+          </div>
+        </nav>
+      </header>
+      <!-- 본문 -->
+      <main class="in-content py-3 py-lg-4">
+        <div class="container-fluid pt-0 in-page-wrap">
+          <div class="in-main-flex">
+            <!-- 페이지 타이틀 -->
+            <div class="title-area">
+              <h2 class="m-0 fw-bold"><img th:src="@{/images/icon/tit-dashboard.svg}" alt="">Dashboard</h2>
+              <!-- breadcrumb -->
+              <ol class="in-breadcrumb-list" id="breadcrumb"></ol>
+              <!-- //breadcrumb -->
+            </div>
+
+            <div class="in-main-area">
+              <div class="col-12 col-lg-6">
+                <section class="card in-card">
+                  <div class="card-header in-card-header d-flex align-items-center gap-2">
+                    <i class="in-ico-alarm"></i>
+                    <strong class="in-card-title">MSDS 개정 알림</strong>
+                  </div>
+                  <div class="card-body">
+                    <div class="chart-wrap">
+                      <canvas id="msdsChart"></canvas>
+                    </div>
+                  </div>
+                </section>
+              </div>
+
+              <div class="col-12 col-lg-6">
+                <section class="card in-card">
+                  <div class="card-header in-card-header d-flex align-items-center gap-2">
+                    <i class="in-ico-registration"></i>
+                    <strong class="in-card-title">사용부서별 등록 현황</strong>
+                  </div>
+                  <div class="card-body">
+                    <div class="site-grid">
+                      <section class="site-card">
+                        <header class="site-head">여수사업장</header>
+                        <div class="site-body">
+                          <a class="site-row" href="#"><span class="site-name">관리팀</span><span class="site-badge">12</span></a>
+                          <a class="site-row" href="#"><span class="site-name">품질관리팀</span><span class="site-badge">52</span></a>
+                          <a class="site-row" href="#"><span class="site-name">연구팀</span><span class="site-badge">2</span></a>
+                        </div>
+                      </section>
+
+                      <section class="site-card is-scroll">
+                        <header class="site-head">평촌사업장</header>
+                        <div class="site-body">
+                          <a class="site-row" href="#"><span class="site-name">Co2 생산팀</span><span class="site-badge">12</span></a>
+                          <a class="site-row" href="#"><span class="site-name">H2 생산팀</span><span class="site-badge">52</span></a>
+                          <a class="site-row" href="#"><span class="site-name">연구팀</span><span class="site-badge">2</span></a>
+                          <a class="site-row" href="#"><span class="site-name">품질관리팀</span><span class="site-badge">2</span></a>
+                          <a class="site-row" href="#"><span class="site-name">관리팀</span><span class="site-badge">2</span></a>
+                          <a class="site-row" href="#"><span class="site-name">보안소재팀</span><span class="site-badge is-zero">0</span></a>
+                          <a class="site-row" href="#"><span class="site-name">안전환경팀</span><span class="site-badge">6</span></a>
+                          <a class="site-row" href="#"><span class="site-name">설비팀</span><span class="site-badge">9</span></a>
+                        </div>
+                      </section>
+
+                      <section class="site-card">
+                        <header class="site-head">대전사업장</header>
+                        <div class="site-body">
+                          <a class="site-row" href="#"><span class="site-name">PU 생산팀</span><span class="site-badge">12</span></a>
+                          <a class="site-row" href="#"><span class="site-name">코팅수지생산팀</span><span class="site-badge">52</span></a>
+                          <a class="site-row" href="#"><span class="site-name">연구팀</span><span class="site-badge">2</span></a>
+                          <a class="site-row" href="#"><span class="site-name">품질관리팀</span><span class="site-badge">2</span></a>
+                          <a class="site-row" href="#"><span class="site-name">관리팀</span><span class="site-badge">2</span></a>
+                        </div>
+                      </section>
+                    </div>
+                  </div>
+                </section>
+              </div>
+
+            </div>
+            <div class="in-main-area">
+
+              <div class="col-12 col-lg-6">
+                <section class="card in-card">
+                  <div class="card-header in-card-header d-flex align-items-center gap-2">
+                    <i class="in-ico-situation"></i>
+                    <strong class="in-card-title">Inventory 현황</strong>
+                  </div>
+                  <div class="card-body">
+                    <div class="row g-3 in-inv-grid">
+                      <!-- 원료 -->
+                      <div class="col-6 col-md-4 col-lg-3 col-xl inv-col-5">
+                        <a href="#" class="inv-card inv-c1">
+                          <span class="inv-ico wonlyo">
+                            <img th:src="@{/images/icon/ico-wonlyo.svg}" alt="">
+                          </span>
+                          <span class="inv-name">원료</span>
+                          <strong class="inv-num">7</strong>
+                          <span class="inv-btn">자세히 보기</span>
+                        </a>
+                      </div>
+
+                      <!-- 시약 -->
+                      <div class="col-6 col-md-4 col-lg-3 col-xl inv-col-5">
+                        <a href="#" class="inv-card inv-c2">
+                          <span class="inv-ico siyag">
+                            <img th:src="@{/images/icon/ico-siyag.svg}" alt="">
+                          </span>
+                          <span class="inv-name">시약</span>
+                          <strong class="inv-num">12</strong>
+                          <span class="inv-btn">자세히 보기</span>
+                        </a>
+                      </div>
+
+                      <!-- 소모품 -->
+                      <div class="col-6 col-md-4 col-lg-3 col-xl inv-col-5">
+                        <a href="#" class="inv-card inv-c3">
+                          <span class="inv-ico somopum">
+                            <img th:src="@{/images/icon/ico-somopum.svg}" alt="">
+                          </span>
+                          <span class="inv-name">소모품</span>
+                          <strong class="inv-num">137</strong>
+                          <span class="inv-btn">자세히 보기</span>
+                        </a>
+                      </div>
+
+                      <!-- 제품 -->
+                      <div class="col-6 col-md-4 col-lg-3 col-xl inv-col-5">
+                        <a href="#" class="inv-card inv-c4">
+                          <span class="inv-ico jepum">
+                            <img th:src="@{/images/icon/ico-jepum.svg}" alt="">
+                          </span>
+                          <span class="inv-name">제품</span>
+                          <strong class="inv-num">7</strong>
+                          <span class="inv-btn">자세히 보기</span>
+                        </a>
+                      </div>
+
+                      <!-- 반제품 -->
+                      <div class="col-6 col-md-4 col-lg-3 col-xl inv-col-5">
+                        <a href="#" class="inv-card inv-c5">
+                          <span class="inv-ico banjepum">
+                            <img th:src="@{/images/icon/ico-banjepum.svg}" alt="">
+                          </span>
+                          <span class="inv-name">반제품</span>
+                          <strong class="inv-num">12</strong>
+                          <span class="inv-btn">자세히 보기</span>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+
+              <div class="col-12 col-lg-6">
+                <section class="card in-card">
+                  <div class="card-header in-card-header d-flex align-items-center gap-2">
+                    <i class="in-ico-regulation"></i>
+                    <strong class="in-card-title">규제물질 취급현황</strong>
+                  </div>
+                  <div class="card-body">
+                    <div class="rule-table">
+                      <!-- 화관법 -->
+                      <div class="rule-row">
+                        <div class="rule-law">화관법</div>
+
+                        <div class="rule-items">
+                          <div class="rule-item">
+                            <span class="rule-name">유독물질</span>
+                            <span class="rule-badge">12종</span>
+                          </div>
+                          <div class="rule-item">
+                            <span class="rule-name">허가물질</span>
+                            <span class="rule-badge is-zero">0종</span>
+                          </div>
+                          <div class="rule-item">
+                            <span class="rule-name">제한물질</span>
+                            <span class="rule-badge">1종</span>
+                          </div>
+                          <div class="rule-item">
+                            <span class="rule-name">금지물질</span>
+                            <span class="rule-badge">1종</span>
+                          </div>
+                          <div class="rule-item">
+                            <span class="rule-name">사고대비물질</span>
+                            <span class="rule-badge">9종</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- 화평법 -->
+                      <div class="rule-row">
+                        <div class="rule-law">화평법</div>
+
+                        <div class="rule-items">
+                          <div class="rule-item">
+                            <span class="rule-name">CMR물질</span>
+                            <span class="rule-badge">3종</span>
+                          </div>
+                          <div class="rule-item">
+                            <span class="rule-name">중점관리물질</span>
+                            <span class="rule-badge">1종</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- 산안법 -->
+                      <div class="rule-row">
+                        <div class="rule-law">산안법</div>
+
+                        <div class="rule-items">
+                          <div class="rule-item">
+                            <span class="rule-name">제조금지물질</span>
+                            <span class="rule-badge is-zero">0종</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <div class="in-main-area">
+
+              <div class="col-12 col-lg-6">
+                <section class="card in-card">
+                  <div class="card-header in-card-header d-flex align-items-center gap-2">
+                    <i class="in-ico-situation"></i>
+                    <strong class="in-card-title">MSDS 개정 필요 목록</strong>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table in-table align-middle mb-0">
+                        <colgroup>
+                          <col style="width:15%;">
+                          <col style="width:15%;">
+                          <col style="width:15%;">
+                          <col style="width:15%;">
+                          <col style="width:15%;">
+                          <col style="width:auto;">
+                        </colgroup>
+                        <thead>
+                          <tr>
+                            <th scope="col">MSDS 번호</th>
+                            <th scope="col">구분</th>
+                            <th scope="col">제품코드</th>
+                            <th scope="col">제품명</th>
+                            <th scope="col">개정일자</th>
+                            <th scope="col" class="text-center">만료여부</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>1</td>
+                            <td>원료</td>
+                            <td>H3321</td>
+                            <td>Talc</td>
+                            <td>2023-06-01</td>
+                            <td class="text-center"><span class="in-badge in-badge-new">신규</span></td>
+                          </tr>
+                          <tr>
+                            <td>2</td>
+                            <td>원료</td>
+                            <td>H3321</td>
+                            <td>Talc</td>
+                            <td>2023-06-01</td>
+                            <td class="text-center"><span class="in-badge in-badge-done">완료</span></td>
+                          </tr>
+                          <tr>
+                            <td>3</td>
+                            <td>원료</td>
+                            <td>H3321</td>
+                            <td>Talc</td>
+                            <td>2023-06-01</td>
+                            <td class="text-center"><span class="in-badge in-badge-new">신규</span></td>
+                          </tr>
+                          <tr>
+                            <td>4</td>
+                            <td>원료</td>
+                            <td>H3321</td>
+                            <td>Talc</td>
+                            <td>2023-06-01</td>
+                            <td class="text-center"><span class="in-badge in-badge-done">완료</span></td>
+                          </tr>
+                          <tr>
+                            <td>5</td>
+                            <td>원료</td>
+                            <td>H3321</td>
+                            <td>Talc</td>
+                            <td>2023-06-01</td>
+                            <td class="text-center"><span class="in-badge in-badge-new">신규</span></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </section>
+              </div>
+              <div class="col-12 col-lg-6">
+                <section class="card in-card">
+                  <div class="card-header in-card-header d-flex align-items-center gap-2">
+                    <i class="in-ico-add"></i>
+                    <strong class="in-card-title">신규 Inventory 등록</strong>
+                  </div>
+                  <div class="card-body">
+                    <div class="table-responsive">
+                      <table class="table in-table align-middle mb-0">
+                        <colgroup>
+                          <col style="width:25%;">
+                          <col style="width:25%;">
+                          <col style="width:25%;">
+                          <col style="width:25%;">
+                        </colgroup>
+                        <thead>
+                          <tr>
+                            <th scope="col">제품명</th>
+                            <th scope="col">회사명</th>
+                            <th scope="col">등록일</th>
+                            <th scope="col" class="text-center">개정여부</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>Luperox Mia</td>
+                            <td>세기아카데미</td>
+                            <td>2025-05-11</td>
+                            <td class="text-center"><span class="in-badge in-badge-new">신규</span></td>
+                          </tr>
+                          <tr>
+                            <td>Luperox Mia</td>
+                            <td>세기아카데미</td>
+                            <td>2025-05-11</td>
+                            <td class="text-center"><span class="in-badge in-badge-done">완료</span></td>
+                          </tr>
+                          <tr>
+                            <td>Luperox Mia</td>
+                            <td>세기아카데미</td>
+                            <td>2025-05-11</td>
+                            <td class="text-center"><span class="in-badge in-badge-new">신규</span></td>
+                          </tr>
+                          <tr>
+                            <td>Luperox Mia</td>
+                            <td>세기아카데미</td>
+                            <td>2025-05-11</td>
+                            <td class="text-center"><span class="in-badge in-badge-done">완료</span></td>
+                          </tr>
+                          <tr>
+                            <td>Luperox Mia</td>
+                            <td>세기아카데미</td>
+                            <td>2025-05-11</td>
+                            <td class="text-center"><span class="in-badge in-badge-new">신규</span></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </div>
+
+            <aside class="ai-rightbar" aria-label="ChemTOS">
+              <a href="#" class="ai-rightbar-link" aria-label="Chem TOS">
+              </a>
+            </aside>
+
+          </div>
+        </div>
+      </main>
+      <!-- 우측 AI 배지 -->
+      <footer class="footer">
+        <div class="footer-inner">
+          <div class="footer-left">
+            <i class="ico-clock" aria-hidden="true"></i>
+            <span>2025.7.5 오전 9:00:00</span>
+          </div>
+
+          <div class="footer-right">
+            Copyright(c) 2025 NEUROCHEM ALL Rights Reserved.
+          </div>
+        </div>
+      </footer>
+
+
+      <!-- //본문 -->
+    </div>
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+
+  <script th:src="@{/js/scripts.js}" defer></script>
+  <script th:src="@{/js/breadcrumb.js}" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script th:src="@{/js/chart.js}" defer></script>
+</body>
+
+</html>

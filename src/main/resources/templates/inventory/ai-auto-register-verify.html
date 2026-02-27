@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+  <meta property="og:title" content="NeuroChem Inventory">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="images/img_og.png">
+  <meta property="og:site_name" content="NeuroChem Inventory">
+  <meta property="og:description" content="NeuroChem Inventory">
+
+  <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+
+  <title>NeuroChem Inventory</title>
+
+  <link th:href="@{/css/common.css}" rel="stylesheet" />
+  <link th:href="@{/vendor/bootstrap-icons/bootstrap-icons.min.css}" rel="stylesheet">
+</head>
+
+<body>
+<div id="layoutSidenav">
+  <!-- 사이드바 -->
+  <div th:replace="~{layout/gnb :: gnbFragment}"></div>
+  <!-- //사이드바 -->
+  <div id="layoutSidenav-content">
+    <header>
+      <nav class="in-topnav navbar navbar-expand shadow-sm between fixed-top">
+        <div class="m-nav">
+          <button type="button" class="btn-mnav" id="btnMobileNav" aria-label="메뉴 열기"></button>
+          <h1><img th:src="@{/images/logo-black.svg}" /></h1>
+        </div>
+
+        <div class="logout-wrap">
+          <span class="logout-divider" aria-hidden="true"></span>
+          <a href="" class="ai-symbol"></a>
+          <button type="button" class="in-btn-close">
+            <span class="btn-close-text">닫기</span>
+          </button>
+        </div>
+      </nav>
+    </header>
+    <!-- 본문 -->
+    <main class="in-content py-3 py-lg-4">
+      <div class="container-fluid pt-0 in-page-wrap">
+        <div class="in-main-flex">
+          <!-- 페이지 타이틀 -->
+          <div class="title-area">
+            <h2 class="m-0 fw-bold"><img th:src="@{/images/icon/tit-ai-auto-register-verify.svg}" alt="">AI 자동 등록 검증</h2>
+            <!-- breadcrumb -->
+            <ol class="in-breadcrumb-list" id="breadcrumb"></ol>
+            <!-- //breadcrumb -->
+          </div>
+          <!-- 본문 -->
+          <div class="container pt-0">
+            <section class="card in-card">
+              <div class="card-body p-0">
+                <table class="table table-bordered in-form-table mb-0">
+                  <tbody>
+                  <tr class="d-block d-md-table-row">
+                    <th class="d-block d-md-table-cell">품목구분</th>
+                    <td class="d-block d-md-table-cell">
+                      <select class="form-select form-select-sm">
+                        <option>선택</option>
+                      </select>
+                    </td>
+                    <th class="d-block d-md-table-cell">자재/제품코드</th>
+                    <td class="d-block d-md-table-cell">
+                      <input type="text" class="form-control form-control-sm">
+                    </td>
+                  </tr>
+                  <tr class="d-block d-md-table-row">
+                    <th class="d-block d-md-table-cell">자재/제품명</th>
+                    <td class="d-block d-md-table-cell">
+                      <input type="text" class="form-control form-control-sm">
+                    </td>
+                    <th class="d-block d-md-table-cell req">회사명</th>
+                    <td class="d-block d-md-table-cell">
+                      <input type="text" class="form-control form-control-sm">
+                    </td>
+                  </tr>
+                  <tr class="d-block d-md-table-row">
+                    <th class="d-block d-md-table-cell">상태</th>
+                    <td class="d-block d-md-table-cell" colspan="3">
+                      <select class="form-select form-select-sm">
+                        <option>선택</option>
+                      </select>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+                <div class="btn-area justify-content-end">
+                  <button type="button" class="btn btn-search"><i class="bi bi-search"></i> <span class="d-none d-md-inline">조회</span></button>
+                </div>
+              </div>
+            </section>
+            <section class="card in-card mt-3">
+              <div class="card-body p-0">
+
+                <div class="table-responsive">
+                  <table class="table table-bordered align-middle in-table-list mb-0">
+                    <colgroup>
+                      <col style="width:10%;">
+                      <col style="width:10%;">
+                      <col style="width:16%;">
+                      <col style="width:18%;">
+                      <col style="width:12%;">
+                      <col style="width:12%;">
+                      <col style="width:10%;">
+                      <col style="width:auto;">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                      <th>No</th>
+                      <th>품목구분</th>
+                      <th>자재/제품코드</th>
+                      <th>제품명</th>
+                      <th>회사명</th>
+                      <th>등록일</th>
+                      <th>상태</th>
+                      <th>검증</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td>6</td>
+                      <td>원료</td>
+                      <td>RF001</td>
+                      <td></td>
+                      <td></td>
+                      <td>2024-05-11</td>
+                      <td>
+                        <span class="status-text">등록불가</span>
+                        <span class="tooltip-wrap">
+                              <button type="button" class="help-q" aria-label="도움말">?</button>
+                              <div class="custom-tooltip custom-tooltip-bottom" role="tooltip">
+                                <div class="custom-tooltip-arrow"></div>
+                                <div class="custom-tooltip-inner">
+                                  <span class="tit">MSDS 문서 분석 중</span>
+                                  <span class="desc">문서 분석중 원인을 알수 없는 문제가 발생했습니다.</span>
+                                </div>
+                              </div>
+                            </span>
+                      </td>
+                      <td class="td-actions">
+                        <button type="button" class="btn btn-outline-danger btn-sm">삭제</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td>소모품</td>
+                      <td>RF2024-05-01</td>
+                      <td>Pigment Yellow 183</td>
+                      <td>엘지테크</td>
+                      <td>2024-09-05</td>
+                      <td>등록완료</td>
+                      <td class="td-actions"><button type="button" class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#ComVerify">진행</button></td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>시약</td>
+                      <td>RF2024-05-01</td>
+                      <td>H신규</td>
+                      <td>엘지테크</td>
+                      <td>2024-09-05</td>
+                      <td>등록완료</td>
+                      <td class="td-actions"><button type="button" class="btn btn-success btn-sm">완료</button></td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>시약</td>
+                      <td>RF2024-05-01</td>
+                      <td>H신규</td>
+                      <td>엘지테크</td>
+                      <td>2024-09-05</td>
+                      <td>등록완료</td>
+                      <td class="td-actions"><button type="button" class="btn btn-success btn-sm">완료</button></td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>시약</td>
+                      <td>RF2024-05-01</td>
+                      <td>H신규</td>
+                      <td>엘지테크</td>
+                      <td>2024-09-05</td>
+                      <td>등록완료</td>
+                      <td class="td-actions"><button type="button" class="btn btn-success btn-sm">완료</button></td>
+                    </tr>
+                    <tr>
+                      <td>1</td>
+                      <td>시약</td>
+                      <td>RF2024-05-01</td>
+                      <td>H신규</td>
+                      <td>엘지테크</td>
+                      <td>2024-09-05</td>
+                      <td>등록완료</td>
+                      <td class="td-actions"><button type="button" class="btn btn-success btn-sm">완료</button></td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <nav class="d-flex justify-content-center mt-3">
+                  <ul class="pagination pagination-sm align-items-center gap-2 mb-0">
+                    <li class="page-item disabled">
+                      <a class="page-link page-prev" href="#" aria-label="이전">
+                        <i class="bi bi-chevron-left"></i>
+                        <span class="visually-hidden">이전</span>
+                      </a>
+                    </li>
+                    <li class="page-item active"><a class="page-link border-0 bg-transparent px-2" href="#">1</a></li>
+                    <li class="page-item" aria-current="page">
+                      <a class="page-link px-2 fw-bold" href="#">2</a>
+                    </li>
+                    <li class="page-item"><a class="page-link px-2" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link px-2" href="#">4</a></li>
+                    <li class="page-item"><a class="page-link px-2" href="#">5</a></li>
+                    <li class="page-item">
+                      <a class="page-link page-next" href="#" aria-label="다음">
+                        <i class="bi bi-chevron-right"></i>
+                        <span class="visually-hidden">다음</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+
+              </div>
+              <div class="btn-area justify-content-end">
+                <button type="button" class="btn btn-primary">등록</button>
+              </div>
+            </section>
+          </div>
+          <!-- .본문 -->
+
+          <aside class="ai-rightbar" aria-label="ChemTOS">
+            <a href="#" class="ai-rightbar-link" aria-label="Chem TOS">
+            </a>
+          </aside>
+        </div>
+      </div>
+    </main>
+    <!-- 우측 AI 배지 -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <i class="ico-clock" aria-hidden="true"></i>
+          <span>2025.7.5 오전 9:00:00</span>
+        </div>
+
+        <div class="footer-right">
+          Copyright(c) 2025 NEUROCHEM ALL Rights Reserved.
+        </div>
+      </div>
+    </footer>
+    <!-- //본문 -->
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade in-modal" id="ComVerify" tabindex="-1" aria-labelledby="ComVerify" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- header -->
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold text-white" id="modalRegCheckLabel">콘크리트용 고로슬래그 미분말</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="닫기"></button>
+      </div>
+
+      <!-- body -->
+      <div class="modal-body">
+        <div class="modal-body-inner">
+          <div class="row modal-row">
+            <div class="col-12 col-md-6 pe-3 modal-height d-flex flex-column">
+              <!-- Tabs -->
+              <div class="in-tab-wrap">
+                <ul class="nav nav-tabs in-tabs" id="regionTab" role="tablist">
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="tab-company" data-bs-toggle="tab" data-bs-target="#pane-kr" type="button" role="tab">회사정보</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="tab-hazard" data-bs-toggle="tab" data-bs-target="#pane-eu" type="button" role="tab">유해위험성 정보</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="tab-toxic" data-bs-toggle="tab" data-bs-target="#pane-us" type="button" role="tab">성분/노출/독성/규제정보</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="tab-transport" data-bs-toggle="tab" data-bs-target="#pane-cn" type="button" role="tab">운송정보</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="tab-physical" data-bs-toggle="tab" data-bs-target="#pane-jp" type="button" role="tab">물리화학적특성정보</button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="tab-etc" data-bs-toggle="tab" data-bs-target="#pane-etc" type="button" role="tab">기타정보</button>
+                  </li>
+                </ul>
+              </div>
+
+              <div class="tab-scroll">
+                <!-- Tab contents -->
+                <div class="tab-content pt-4 pb-0" id="regionTabContent">
+
+                  <!-- 회사정보 -->
+                  <div class="tab-pane fade show active" id="pane-kr" role="tabpanel" aria-labelledby="tab-company">
+
+                    <div class="table-responsive overflow-auto">
+                      <table class="table table-bordered align-middle in-table-type mb-0">
+                        <colgroup>
+                          <col style="width:200px;">
+                          <col style="width:auto;">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                          <th scope="col">항목</th>
+                          <th scope="col">선택</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                          <th class="bg-light">사용부서</th>
+                          <td class="bg-white">
+                            <div class="row g-2 align-items-center">
+                              <div class="col-12 col-lg-auto">
+                                <select class="form-select form-select-sm w-auto">
+                                  <option selected>선택</option>
+                                  <option>사업장 1</option>
+                                  <option>사업장 2</option>
+                                </select>
+                              </div>
+                              <div class="col-12 col-lg-auto">
+                                <select class="form-select form-select-sm w-auto">
+                                  <option selected>선택</option>
+                                  <option>부서 1</option>
+                                  <option>부서 2</option>
+                                </select>
+                              </div>
+                              <div class="col-12 col-lg-auto">
+                                <select class="form-select form-select-sm w-auto">
+                                  <option selected>선택</option>
+                                  <option>팀 1</option>
+                                  <option>팀 2</option>
+                                </select>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">품목구분</th>
+                          <td>
+                            <select class="form-select form-select-sm w-auto">
+                              <option selected>선택</option>
+                              <option>품목 1</option>
+                              <option>품목 2</option>
+                            </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">자재코드</th>
+                          <td class="bg-white">
+                            <div class="col-12 col-lg-auto">
+                              <input type="text" class="form-control file-text" placeholder="">
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light req">자재코드명</th>
+                          <td class="bg-white">
+                            <div class="col-12 col-lg-auto">
+                              <input type="text" class="form-control file-text" placeholder="">
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">제조/내수/수입</th>
+                          <td>
+                            <select class="form-select form-select-sm w-auto">
+                              <option selected>선택</option>
+                              <option>품목 1</option>
+                              <option>품목 2</option>
+                            </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light req">Msds 번호</th>
+                          <td class="bg-white">
+                            <div class="col-12 col-lg-auto">
+                              <input type="text" class="form-control file-text" placeholder="">
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light req">제품명</th>
+                          <td class="bg-white">
+                            <div class="col-12 col-lg-auto">
+                              <input type="text" class="form-control file-text" placeholder="">
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light req">공급업체 또는 제조사</th>
+                          <td class="bg-white">
+                            <div class="col-12 col-lg-auto">
+                              <input type="text" class="form-control file-text" placeholder="">
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light req">전화번호</th>
+                          <td class="bg-white">
+                            <div class="col-12 col-lg-auto">
+                              <input type="text" class="form-control file-text" placeholder="">
+                            </div>
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <!-- 유해위험성 정보 -->
+                  <div class="tab-pane fade" id="pane-eu" role="tabpanel" aria-labelledby="tab-hazard">
+                    <div class="table-responsive overflow-auto">
+                      <table class="table table-bordered align-middle in-table-type mb-0">
+                        <colgroup>
+                          <col style="width:100px;">
+                          <col style="width:100px;">
+                          <col style="width:auto;">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                          <th scope="col" colspan="3">유해위험성</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                          <th class="bg-light" colspan="2">그림문자</th>
+                          <td class="bg-white p-4"><img th:src="@{/images/ico-warning.png}" /></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light" colspan="2">유해성/위험성 분류</th>
+                          <td class="bg-white">
+                            <div class="d-flex justify-content-end mb-2 border-bottom pb-2">
+                              <button type="button" class="btn btn-sm btn-primary" id="btnAddClass"><i class="bi bi-plus"></i> 분류 추가</button>
+                            </div>
+                            <div class="class-list">
+                              <div class="class-item d-flex align-items-center gap-2 mb-2">
+                                <select class="form-select form-select-sm class-sel-1">
+                                  <option selected>발암성</option>
+                                  <option>생식세포변이원성</option>
+                                  <option>피부부식성</option>
+                                </select>
+                                <select class="form-select form-select-sm class-sel-2">
+                                  <option selected>구분1</option>
+                                  <option>구분2</option>
+                                  <option>구분3</option>
+                                </select>
+                                <button type="button" class="btn-row-del" aria-label="삭제">
+                                  <i class="bi bi-x"></i>
+                                </button>
+                              </div>
+                              <div class="class-item d-flex align-items-center gap-2 mb-2">
+                                <select class="form-select form-select-sm class-sel-1">
+                                  <option selected>발암성</option>
+                                  <option>생식세포변이원성</option>
+                                  <option>피부부식성</option>
+                                </select>
+                                <select class="form-select form-select-sm class-sel-2">
+                                  <option selected>구분1</option>
+                                  <option>구분2</option>
+                                  <option>구분3</option>
+                                </select>
+                                <button type="button" class="btn-row-del" aria-label="삭제">
+                                  <i class="bi bi-x"></i>
+                                </button>
+                              </div>
+                              <div class="class-item d-flex align-items-center gap-2">
+                                <select class="form-select form-select-sm class-sel-1">
+                                  <option>발암성</option>
+                                  <option>생식세포변이원성</option>
+                                  <option selected>피부부식성</option>
+                                </select>
+                                <select class="form-select form-select-sm class-sel-2">
+                                  <option selected>구분1</option>
+                                  <option>구분2</option>
+                                  <option>구분3</option>
+                                </select>
+                                <button type="button" class="btn-row-del" aria-label="삭제">
+                                  <i class="bi bi-x"></i>
+                                </button>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light" colspan="2">신호어</th>
+                          <td class="bg-white">
+                            <div class="col-12 col-lg-auto">
+                              <input type="text" class="form-control file-text" placeholder="">
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light" colspan="2">H CODE</th>
+                          <td class="bg-white">
+                            <div class="col-12 col-lg-auto">
+                              <div class="d-flex justify-content-end mb-2 border-bottom pb-2">
+                                <button type="button" class="btn btn-sm btn-primary" id="btnAddClass"><i class="bi bi-plus"></i> 문구 추가</button>
+                              </div>
+                              <input type="text" class="form-control file-text mb-2" placeholder="">
+                              <input type="text" class="form-control file-text" placeholder="">
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light" rowspan="4">P CODE</th>
+                          <th class="bg-light">예방</th>
+                          <td class="bg-white">
+                            <div class="col-12 col-lg-auto">
+                              <div class="d-flex justify-content-end mb-2 border-bottom pb-2">
+                                <button type="button" class="btn btn-sm btn-primary" id="btnAddClass"><i class="bi bi-plus"></i> 문구 추가</button>
+                              </div>
+                              <input type="text" class="form-control file-text mb-2" placeholder="">
+                              <input type="text" class="form-control file-text" placeholder="">
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">대응</th>
+                          <td class="bg-white">
+                            <div class="col-12 col-lg-auto">
+                              <div class="d-flex justify-content-end mb-2 border-bottom pb-2">
+                                <button type="button" class="btn btn-sm btn-primary" id="btnAddClass"><i class="bi bi-plus"></i> 문구 추가</button>
+                              </div>
+                              <input type="text" class="form-control file-text mb-2" placeholder="">
+                              <input type="text" class="form-control file-text" placeholder="">
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">저장</th>
+                          <td class="bg-white">
+                            <div class="col-12 col-lg-auto">
+                              <div class="d-flex justify-content-end mb-2 border-bottom pb-2">
+                                <button type="button" class="btn btn-sm btn-primary" id="btnAddClass"><i class="bi bi-plus"></i> 문구 추가</button>
+                              </div>
+                              <input type="text" class="form-control file-text mb-2" placeholder="">
+                              <input type="text" class="form-control file-text" placeholder="">
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">폐기</th>
+                          <td class="bg-white">
+                            <div class="col-12 col-lg-auto">
+                              <div class="d-flex justify-content-end mb-2 border-bottom pb-2">
+                                <button type="button" class="btn btn-sm btn-primary" id="btnAddClass"><i class="bi bi-plus"></i> 문구 추가</button>
+                              </div>
+                              <input type="text" class="form-control file-text mb-2" placeholder="">
+                              <input type="text" class="form-control file-text" placeholder="">
+                            </div>
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <!-- 성분/노출/독성/규제정보 -->
+                  <div class="tab-pane fade" id="pane-us" role="tabpanel" aria-labelledby="tab-toxic">
+
+                    <div class="d-flex justify-content-end mb-2 border-bottom pb-2">
+                      <button type="button" class="btn btn-sm btn-primary" id="btnAddClass"><i class="bi bi-plus"></i> 물질추가</button>
+                    </div>
+                    <div class="table-responsive">
+                      <table class="table table-bordered align-middle in-table-list mb-0">
+                        <colgroup>
+                          <col style="width:10%;">
+                          <col style="width:10%;">
+                          <col style="width:16%;">
+                          <col style="width:18%;">
+                          <col style="width:12%;">
+                          <col style="width:12%;">
+                          <col style="width:auto;">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                          <th>물질명</th>
+                          <th class="req">Cas 번호 </th>
+                          <th>고유번호</th>
+                          <th>함유량(%)</th>
+                          <th>노출기준(허용농도)</th>
+                          <th>고유번호</th>
+                          <th>삭제</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                          <td class="text-center">
+                            <button type="button" class="btn-row-del" aria-label="삭제">
+                              <i class="bi bi-x"></i>
+                            </button>
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <h5 class="section-title mt-2">규제정보</h5>
+                    <div class="table-responsive">
+                      <table class="table table-bordered align-middle in-table-list mb-3">
+                        <colgroup>
+                          <col style="width:18%;">
+                          <col style="width:32%;">
+                          <col style="width:18%;">
+                          <col style="width:32%;">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                          <th class="text-center">항목</th>
+                          <th class="text-center">선택</th>
+                          <th class="text-center">항목</th>
+                          <th class="text-center">선택</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                          <th class="bg-light">제조등급지물질</th>
+                          <td>
+                            <select class="form-select form-select-sm w-100">
+                              <option selected>해당안됨</option>
+                              <option>해당</option>
+                            </select>
+                          </td>
+                          <th class="bg-light">허가대상물질</th>
+                          <td>
+                            <select class="form-select form-select-sm w-100">
+                              <option selected>해당안됨</option>
+                              <option>해당</option>
+                            </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">관리대상유해물질</th>
+                          <td>
+                            <select class="form-select form-select-sm w-100">
+                              <option selected>해당안됨</option>
+                              <option>해당</option>
+                            </select>
+                          </td>
+                          <th class="bg-light">특별관리물질</th>
+                          <td>
+                            <select class="form-select form-select-sm w-100">
+                              <option selected>해당안됨</option>
+                              <option>해당</option>
+                            </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">작업환경측정물질</th>
+                          <td>
+                            <select class="form-select form-select-sm w-100">
+                              <option selected>해당안됨</option>
+                              <option>해당</option>
+                            </select>
+                          </td>
+                          <th class="bg-light">특수건강진단대상물질</th>
+                          <td>
+                            <select class="form-select form-select-sm w-100">
+                              <option selected>해당안됨</option>
+                              <option>해당</option>
+                            </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">노출기준설정물질</th>
+                          <td>
+                            <select class="form-select form-select-sm w-100">
+                              <option selected>해당안됨</option>
+                              <option>해당</option>
+                            </select>
+                          </td>
+                          <th class="bg-light">허용기준설정물질</th>
+                          <td>
+                            <select class="form-select form-select-sm w-100">
+                              <option selected>해당안됨</option>
+                              <option>해당</option>
+                            </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">공정안전보고서(PSM)<br>제출 대상물질</th>
+                          <td>
+                            <select class="form-select form-select-sm w-100">
+                              <option selected>해당안됨</option>
+                              <option>해당</option>
+                            </select>
+                          </td>
+                          <th class="bg-light">유독물질</th>
+                          <td>
+                            <select class="form-select form-select-sm w-100">
+                              <option selected>해당안됨</option>
+                              <option>해당</option>
+                            </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">사고대비물질</th>
+                          <td>
+                            <select class="form-select form-select-sm w-100">
+                              <option selected>해당안됨</option>
+                              <option>해당</option>
+                            </select>
+                          </td>
+                          <th class="bg-light">금지물질</th>
+                          <td>
+                            <select class="form-select form-select-sm w-100">
+                              <option selected>해당안됨</option>
+                              <option>해당</option>
+                            </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">제한물질</th>
+                          <td>
+                            <select class="form-select form-select-sm w-100">
+                              <option selected>해당안됨</option>
+                              <option>해당</option>
+                            </select>
+                          </td>
+                          <th class="bg-light">허가물질</th>
+                          <td>
+                            <select class="form-select form-select-sm w-100">
+                              <option selected>해당안됨</option>
+                              <option>해당</option>
+                            </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">위험물</th>
+                          <td>
+                            <select class="form-select form-select-sm w-100">
+                              <option selected>해당안됨</option>
+                              <option>해당</option>
+                            </select>
+                          </td>
+                          <th class="bg-light">지정폐기물</th>
+                          <td>
+                            <select class="form-select form-select-sm w-100">
+                              <option selected>해당안됨</option>
+                              <option>해당</option>
+                            </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">인체급성유해성물질</th>
+                          <td>
+                            <select class="form-select form-select-sm w-100">
+                              <option selected>해당안됨</option>
+                              <option>해당</option>
+                            </select>
+                          </td>
+                          <th class="bg-light">인체만성유해성물질</th>
+                          <td>
+                            <select class="form-select form-select-sm w-100">
+                              <option selected>해당안됨</option>
+                              <option>해당</option>
+                            </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">생태유해성물질</th>
+                          <td>
+                            <select class="form-select form-select-sm w-100">
+                              <option selected>해당안됨</option>
+                              <option>해당</option>
+                            </select>
+                          </td>
+                          <th class="bg-light"></th>
+                          <td></td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <h5 class="section-title mt-2">인체 독성 정보</h5>
+                    <div class="table-responsive">
+                      <table class="table table-bordered align-middle in-table-list mb-3">
+                        <colgroup>
+                          <col style="width:140px;">
+                          <col>
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                          <th class="bg-light" style="width:140px;">경구</th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">경피</th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">흡입</th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">흡입(가스)</th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">흡입(증기)</th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">흡입(분진/미스트)</th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">피부부식성 또는 자극성</th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">심한 눈손상 또는 자극성</th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">호흡기과민성</th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">피부과민성</th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">발암성</th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">생식세포변이원성</th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">생식독성</th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">표적장기 전신독성물질(1회노출)</th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">표적장기 전신독성물질(반복노출)</th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">흡인유해성</th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <h5 class="section-title mt-2">환경 독성 정보</h5>
+                    <div class="table-responsive mb-4">
+                      <table class="table table-bordered align-middle in-table-list mb-0">
+                        <colgroup>
+                          <col style="width:180px;">
+                          <col style="width:110px;">
+                          <col style="width:auto;">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                          <th scope="row" class="bg-light" rowspan="3">생태독성</th>
+                          <th class="bg-white">어류</th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-white">갑각류</th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-white">조류</th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" class="bg-light" rowspan="3">만성수생환경<br>유해성</th>
+                          <th class="bg-white">어류</th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-white">갑각류</th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-white">조류</th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" class="bg-light" rowspan="2">잔류성 및 분해성</th>
+                          <th class="bg-white">잔류성</th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-white">분해성</th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" class="bg-light" rowspan="2">생물농축성</th>
+                          <th class="bg-white">생물농축성</th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-white">생분해성</th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" class="bg-light">토양이동성</th>
+                          <th class="bg-white"></th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" class="bg-light">오존층 유해성</th>
+                          <th class="bg-white"></th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" class="bg-light">기타 유해 영향</th>
+                          <th class="bg-white"></th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                    <h5 class="section-title mt-2">노출정보</h5>
+
+                    <div class="table-responsive">
+                      <table class="table table-bordered align-middle in-table-list mb-0">
+                        <colgroup>
+                          <col style="width:180px;">
+                          <col style="width:auto;">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                          <th scope="row" class="bg-light">국내규정</th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" class="bg-light">ACGIH 규정</th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" class="bg-light">OSHA 규정</th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th scope="row" class="bg-light">생물학적 노출규정</th>
+                          <td><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                  </div>
+
+                  <!-- 운송정보 -->
+                  <div class="tab-pane fade" id="pane-cn" role="tabpanel" aria-labelledby="tab-transport">
+
+                    <div class="table-responsive">
+                      <table class="table table-bordered align-middle in-table-type mb-0">
+                        <colgroup>
+                          <col style="width:200px;">
+                          <col style="width:auto;">
+                        </colgroup>
+                        <thead>
+                        <tr>
+                          <th scope="col">항목</th>
+                          <th scope="col">선택</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                          <th class="bg-light">유엔번호(UN No.)</th>
+                          <td class="bg-white">
+                            <div class="col-12 col-lg-auto">
+                              <input type="text" class="form-control file-text" placeholder="">
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">적정선적명</th>
+                          <td class="bg-white">
+                            <div class="col-12 col-lg-auto">
+                              <input type="text" class="form-control file-text" placeholder="">
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">운송에서의 위험성 등급</th>
+                          <td class="bg-white">
+                            <div class="col-12 col-lg-auto">
+                              <input type="text" class="form-control file-text" placeholder="">
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">용기등급</th>
+                          <td class="bg-white">
+                            <div class="col-12 col-lg-auto">
+                              <input type="text" class="form-control file-text" placeholder="">
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">해양오염물질</th>
+                          <td class="bg-white">
+                            <div class="col-12 col-lg-auto">
+                              <input type="text" class="form-control file-text" placeholder="">
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th colspan="2">사용자가 운송 또는 운송수단에 관련해 알 필요가 있거나 필요한 특별한 안전대책</th>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">화재시 비상조치의 종류</th>
+                          <td class="bg-white">
+                            <div class="col-12 col-lg-auto">
+                              <input type="text" class="form-control file-text" placeholder="">
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">유출시 비상조치의 종류</th>
+                          <td class="bg-white">
+                            <div class="col-12 col-lg-auto">
+                              <input type="text" class="form-control file-text" placeholder="">
+                            </div>
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <!-- 물리화학적특성정보 -->
+                  <div class="tab-pane fade" id="pane-jp" role="tabpanel" aria-labelledby="tab-physical">
+
+                    <div class="table-responsive">
+                      <table class="table table-bordered align-middle in-table-type mb-0">
+                        <colgroup>
+                          <col style="width:200px;">
+                          <col style="width:auto;">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                          <th class="bg-light">성상</th>
+                          <td class="bg-white"><input type="text" class="form-control form-control-sm file-text" value="고체"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">색상</th>
+                          <td class="bg-white"><input type="text" class="form-control form-control-sm file-text" value="흰색"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">냄새</th>
+                          <td class="bg-white"><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">냄새역치</th>
+                          <td class="bg-white"><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">pH</th>
+                          <td class="bg-white"><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">녹는점/어는점</th>
+                          <td class="bg-white">
+                            <div class="d-flex align-items-center gap-2">
+                              <input type="text" class="form-control form-control-sm">
+                              <span class="unit">°C</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">초기 끓는점과 끓는 점 범위</th>
+                          <td class="bg-white">
+                            <div class="d-flex align-items-center gap-2">
+                              <input type="text" class="form-control form-control-sm">
+                              <span class="unit">°C</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">인화점</th>
+                          <td class="bg-white">
+                            <div class="d-flex align-items-center gap-2">
+                              <input type="text" class="form-control form-control-sm">
+                              <span class="unit">°C</span>
+                            </div>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <th class="bg-light">증발속도</th>
+                          <td class="bg-white"><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">인화성(고체, 기체)</th>
+                          <td class="bg-white"><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">인화 또는 폭발 범위의 상한/하한</th>
+                          <td class="bg-white"><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">증기압</th>
+                          <td class="bg-white">
+                            <div class="d-flex align-items-center gap-2">
+                              <input type="text" class="form-control form-control-sm">mmHg
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">용해도</th>
+                          <td class="bg-white">
+                            <div class="d-flex align-items-center gap-2">
+                              <input type="text" class="form-control form-control-sm">mg/L
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">증기밀도</th>
+                          <td class="bg-white"><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">비중</th>
+                          <td class="bg-white"><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">N-옥탄올/물분배계수</th>
+                          <td class="bg-white"><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">자연발화온도</th>
+                          <td class="bg-white">
+                            <div class="d-flex align-items-center gap-2">
+                              <input type="text" class="form-control form-control-sm">
+                              <span class="unit">°C</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">분해온도</th>
+                          <td class="bg-white">
+                            <div class="d-flex align-items-center gap-2">
+                              <input type="text" class="form-control form-control-sm">
+                              <span class="unit">°C</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">점도</th>
+                          <td class="bg-white">
+                            <div class="d-flex align-items-center gap-2">
+                              <input type="text" class="form-control form-control-sm"><span class="unit-nowrap">Mm2/s at 40°C</span>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">분자량</th>
+                          <td class="bg-white"><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+
+                        </tbody>
+                      </table>
+                    </div>
+
+                  </div>
+                  <!-- 기타정보 -->
+                  <div class="tab-pane fade" id="pane-etc" role="tabpanel" aria-labelledby="tab-etc">
+
+                    <div class="table-responsive">
+                      <table class="table table-bordered align-middle in-table-type mb-0">
+                        <colgroup>
+                          <col style="width:200px;">
+                          <col style="width:auto;">
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                          <th class="bg-light">최초작성일자</th>
+                          <td class="bg-white"><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">최종개정일자</th>
+                          <td class="bg-white"><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">버전</th>
+                          <td class="bg-white"><input type="text" class="form-control form-control-sm"></td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 pe-3 mt-4 mt-md-0 d-flex flex-column">
+              <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-primary btn-sm in-tab-pdf">PDF 원본</button>
+              </div>
+              <iframe th:src="@{/images/upload/lorem-ipsum-10pages.pdf#view=FitH&toolbar=0&navpanes=0}" class="pdf-viewer">
+              </iframe>
+            </div>
+          </div>
+          <!-- 버튼 -->
+
+          <div class="modal-footer">
+            <button class="btn btn-outline-danger" type="button">삭제</button>
+            <button class="btn btn-outline-primary" type="button">임시저장</button>
+            <button class="btn btn-outline-primary" type="button">보안필요</button>
+            <button class="btn btn-primary" type="button">검증완료</button>
+          </div>
+
+          <!-- //버튼 -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 필수 라이브러리-->
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}" defer></script>
+<script th:src="@{/vendor/chart.js/Chart.bundle.min.js}" defer></script>
+
+<!-- 공통/기능 스크립트 -->
+<script th:src="@{/js/scripts.js}" defer></script>
+<script th:src="@{/js/breadcrumb.js}" defer></script>
+<script th:src="@{/js/chart.js}" defer></script>
+
+
+
+</body>
+
+</html>

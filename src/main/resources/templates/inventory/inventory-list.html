@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+  <meta property="og:title" content="NeuroChem Inventory">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="images/img_og.png">
+  <meta property="og:site_name" content="NeuroChem Inventory">
+  <meta property="og:description" content="NeuroChem Inventory">
+
+  <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+
+  <title>NeuroChem Inventory</title>
+
+  <link th:href="@{/css/common.css}" rel="stylesheet" />
+  <link th:href="@{/vendor/bootstrap-icons/bootstrap-icons.min.css}" rel="stylesheet">
+
+</head>
+
+<body>
+<div id="layoutSidenav">
+  <!-- 사이드바 -->
+  <div th:replace="~{layout/gnb :: gnbFragment}"></div>
+  <!-- //사이드바 -->
+  <div id="layoutSidenav-content">
+    <header>
+      <nav class="in-topnav navbar navbar-expand shadow-sm between fixed-top">
+        <div class="m-nav">
+          <button type="button" class="btn-mnav" id="btnMobileNav" aria-label="메뉴 열기"></button>
+          <h1><img th:src="@{/images/logo-black.svg}" /></h1>
+        </div>
+
+        <div class="logout-wrap">
+          <span class="logout-divider" aria-hidden="true"></span>
+          <a href="" class="ai-symbol"></a>
+          <button type="button" class="in-btn-close">
+            <span class="btn-close-text">닫기</span>
+          </button>
+        </div>
+      </nav>
+    </header>
+    <!-- 본문 -->
+    <main class="in-content py-3 py-lg-4">
+      <div class="container-fluid pt-0 in-page-wrap">
+        <div class="in-main-flex">
+          <!-- 페이지 타이틀 -->
+          <div class="title-area">
+            <h2 class="m-0 fw-bold"><img th:src="@{/images/icon/tit-database.svg}" alt="">Inventory</h2>
+            <!-- breadcrumb -->
+            <ol class="in-breadcrumb-list" id="breadcrumb"></ol>
+            <!-- //breadcrumb -->
+          </div>
+          <!-- 본문 -->
+          <div class="container pt-0">
+            <section class="card in-card">
+              <div class="card-body p-0">
+                <table class="table table-bordered in-form-table mb-0">
+                  <tbody>
+                  <tr class="d-block d-md-table-row">
+                    <th class="d-block d-md-table-cell">사용부서</th>
+                    <td class="d-block d-md-table-cell">
+                      <select class="form-select form-select-sm">
+                        <option value="" selected>선택</option>
+                        <option>고체</option>
+                        <option>액체</option>
+                      </select>
+                    </td>
+                    <th class="d-block d-md-table-cell">유해위험성 분류</th>
+                    <td class="d-block d-md-table-cell">
+                      <div class="d-flex align-items-center gap-2">
+                        <select class="form-select form-select-sm">
+                          <option value="" selected>선택</option>
+                          <option>유해위험성 품목</option>
+                          <option>액체</option>
+                        </select>
+                        <select class="form-select form-select-sm">
+                          <option value="" selected>구분</option>
+                          <option>고체</option>
+                          <option>액체</option>
+                        </select>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr class="d-block d-md-table-row">
+                    <th class="d-block d-md-table-cell">법적규제현황</th>
+                    <td class="d-block d-md-table-cell">
+                      <select class="form-select form-select-sm">
+                        <option value="" selected>선택</option>
+                        <option>유해위험성 품목</option>
+                        <option>액체</option>
+                      </select>
+                    </td>
+                    <th class="d-block d-md-table-cell req">품목구분</th>
+                    <td class="d-block d-md-table-cell">
+                      <select class="form-select form-select-sm">
+                        <option value="" selected>선택</option>
+                        <option>유해위험성 품목</option>
+                        <option>액체</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr class="d-block d-md-table-row">
+                    <th class="d-block d-md-table-cell">CAS NO</th>
+                    <td class="d-block d-md-table-cell">
+                      <input type="text" class="form-control form-control-sm">
+                    </td>
+                    <th class="d-block d-md-table-cell">자재/제품명</th>
+                    <td class="d-block d-md-table-cell">
+                      <input type="text" class="form-control form-control-sm">
+                    </td>
+                  </tr>
+                  <tr class="d-block d-md-table-row">
+                    <th class="d-block d-md-table-cell">사용사업본부</th>
+                    <td class="d-block d-md-table-cell">
+                      <input type="text" class="form-control form-control-sm">
+                    </td>
+                    <th class="d-block d-md-table-cell">자재/제품코드</th>
+                    <td class="d-block d-md-table-cell">
+                      <input type="text" class="form-control form-control-sm">
+                    </td>
+                  </tr>
+                  <tr class="d-block d-md-table-row">
+                    <th class="d-block d-md-table-cell">개정일자</th>
+                    <td class="d-block d-md-table-cell" colspan="3">
+                      <div class="d-flex align-items-center gap-2 w-50">
+                        <input type="text" class="form-control form-control-sm">
+                        <span>~</span>
+                        <input type="text" class="form-control form-control-sm">
+                      </div>
+                    </td>
+
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section class="card in-card mt-3">
+              <div class="card-body p-0">
+                <!-- 상단 바: Download + 총개수/페이지 + 줄보기 -->
+                <div class="d-flex align-items-center justify-content-between  py-2 border-bottom">
+                  <div class="d-flex align-items-center gap-2">
+                    <div class="text-nowrap fw-semibold">
+                      총 <span class="fw-bold text-black">(42)</span>개 <span class="fw-bold text-black">[전체 : 1/5]</span> 페이지
+                    </div>
+                    <select class="form-select form-select-sm w-auto">
+                      <option selected>10줄 보기</option>
+                      <option>20줄 보기</option>
+                      <option>30줄 보기</option>
+                      <option>50줄 보기</option>
+                    </select>
+                  </div>
+                  <button type="button" class="btn btn-primary btn-sm d-inline-flex align-items-center gap-1" data-file-btn>
+                    <i class="bi bi-file-earmark-excel"></i> 다운로드
+                  </button>
+                </div>
+
+                <!-- 테이블 -->
+                <div class="table-responsive">
+                  <table class="table table-bordered align-middle in-table-list mb-0">
+                    <colgroup>
+                      <col style="width:10%;">
+                      <col style="width:12%;">
+                      <col style="width:18%;">
+                      <col style="width:10%;">
+                      <col style="width:auto;">
+                      <col style="width:14%;">
+                      <col style="width:10%;">
+                      <col style="width:10%;">
+                      <col style="width:10%;">
+                    </colgroup>
+                    <thead>
+                    <tr>
+                      <th>품목구분</th>
+                      <th>자재/제품코드</th>
+                      <th>사용부서</th>
+                      <th>MSDS 파일</th>
+                      <th>자재/제품명</th>
+                      <th>유해성/위험성 분류</th>
+                      <th>물질정보</th>
+                      <th>개정일자</th>
+                      <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                      <td>MRO</td>
+                      <td>H3221</td>
+                      <td>서울본부 &gt; 양천 &gt; 품질</td>
+                      <td class="text-center">
+                        <span class="file-chip">M</span>
+                        <span class="file-chip">M</span>
+                      </td>
+                      <td>포르말린</td>
+                      <td class="text-center">
+                        <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#GhsClassEdit">View</button>
+                      </td>
+                      <td class="text-center">
+                        <button type="button" class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#MaterialEdit">View</button>
+                      </td>
+                      <td class="text-center">2024-01-11</td>
+                      <td class="text-center">
+                        <button type="button" class="btn btn-sm btn-warning">재검증</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>원부원료</td>
+                      <td></td>
+                      <td>강남본부 &gt; 함천 &gt; 생산</td>
+                      <td class="text-center">
+                        <span class="file-chip">M</span>
+                      </td>
+                      <td>Fluorphlogopite</td>
+                      <td class="text-center">
+                        <button type="button" class="btn btn-sm btn-success">View</button>
+                      </td>
+                      <td class="text-center">
+                        <button type="button" class="btn btn-sm btn-success">View</button>
+                      </td>
+                      <td class="text-center">2023-12-22</td>
+                      <td class="text-center">
+                        <button type="button" class="btn btn-sm btn-warning">재검증</button>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <nav class="d-flex justify-content-center mt-3">
+                  <ul class="pagination pagination-sm align-items-center gap-2 mb-0">
+                    <li class="page-item disabled">
+                      <a class="page-link page-prev" href="#" aria-label="이전">
+                        <i class="bi bi-chevron-left"></i>
+                        <span class="visually-hidden">이전</span>
+                      </a>
+                    </li>
+                    <li class="page-item active"><a class="page-link border-0 bg-transparent px-2" href="#">1</a></li>
+                    <li class="page-item" aria-current="page">
+                      <a class="page-link px-2 fw-bold" href="#">2</a>
+                    </li>
+                    <li class="page-item"><a class="page-link px-2" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link px-2" href="#">4</a></li>
+                    <li class="page-item"><a class="page-link px-2" href="#">5</a></li>
+                    <li class="page-item">
+                      <a class="page-link page-next" href="#" aria-label="다음">
+                        <i class="bi bi-chevron-right"></i>
+                        <span class="visually-hidden">다음</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+
+              </div>
+            </section>
+          </div>
+          <!-- .본문 -->
+
+          <aside class="ai-rightbar" aria-label="ChemTOS">
+            <a href="#" class="ai-rightbar-link" aria-label="Chem TOS">
+            </a>
+          </aside>
+        </div>
+      </div>
+    </main>
+    <!-- 우측 AI 배지 -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <i class="ico-clock" aria-hidden="true"></i>
+          <span>2025.7.5 오전 9:00:00</span>
+        </div>
+
+        <div class="footer-right">
+          Copyright(c) 2025 NEUROCHEM ALL Rights Reserved.
+        </div>
+      </div>
+    </footer>
+
+    <!-- //본문 -->
+  </div>
+
+</div>
+
+<!-- 유해성/위험성 분류  Modal -->
+<div class="modal fade" id="GhsClassEdit" tabindex="-1" aria-labelledby="GhsClassEdit" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollabl">
+    <div class="modal-content">
+      <!-- header -->
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold" id="modalRegCheckLabel">2505817 (Loctite Super Glue Liquid)</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="닫기"></button>
+      </div>
+      <!-- body -->
+      <div class="modal-body">
+
+        <!-- 테이블 -->
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle in-table-list mb-0">
+            <colgroup>
+              <col style="width:50%;">
+              <col style="width:50%;">
+            </colgroup>
+            <thead>
+            <tr>
+              <th>유해/위험성 분류</th>
+              <th>구분</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td class="text-start">피부 부식성/피부 자극성</td>
+              <td>구분 2</td>
+            </tr>
+            <tr>
+              <td class="text-start">심한 손상성/눈 자극성</td>
+              <td>구분 2</td>
+            </tr>
+            <tr>
+              <td class="text-start">특정표적장기 · 전신 독성 (1회 노출)</td>
+              <td>구분 3</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="text-center mt-4">
+          <button type="button" class="btn btn-outline-primary px-4" data-bs-dismiss="modal">닫기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- // 유해성/위험성 분류 Modal -->
+
+<!-- 물질 정보 Modal -->
+<div class="modal fade" id="MaterialEdit" tabindex="-1" aria-labelledby="MaterialEdit" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollabl">
+    <div class="modal-content">
+      <!-- header -->
+      <div class="modal-header">
+        <h5 class="modal-title fw-bold" id="modalRegCheckLabel">2505817 (Loctite Super Glue Liquid)</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="닫기"></button>
+      </div>
+      <!-- body -->
+      <div class="modal-body">
+        <!-- 테이블 -->
+        <div class="table-responsive">
+          <table class="table table-bordered align-middle in-table-list mb-0">
+            <colgroup>
+              <col style="width:33.33%;">
+              <col style="width:33.33%;">
+              <col style="width:33.33%;">
+              <col style="width:33.33%;">
+            </colgroup>
+            <thead>
+            <tr>
+              <th>물질명</th>
+              <th>Cas NO</th>
+              <th>허용 농도</th>
+              <th>법적 규제현황</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td class="text-start">Triron tetraoxide</td>
+              <td>1317-61-9</td>
+              <td>90~100</td>
+              <td class="text-start">관리대상 유해물질 / 지정폐기물</td>
+            </tr>
+            <tr>
+              <td class="text-start">Triron tetraoxide</td>
+              <td>1317-61-9</td>
+              <td>90~100</td>
+              <td class="text-start">관리대상 유해물질 / 지정폐기물</td>
+            </tr>
+            </tbody>
+          </table>
+
+        </div>
+        <div class="text-center mt-4">
+          <button type="button" class="btn btn-outline-primary px-4" data-bs-dismiss="modal">닫기</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- // 물질 정보 Modal -->
+
+
+<!-- 필수 라이브러리-->
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}" defer></script>
+<script th:src="@{/vendor/chart.js/Chart.bundle.min.js}" defer></script>
+
+<!-- 공통/기능 스크립트 -->
+<script th:src="@{/js/scripts.js}" defer></script>
+<script th:src="@{/js/breadcrumb.js}" defer></script>
+<script th:src="@{/js/chart.js}" defer></script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.neurolines.genai.dao.genai.WorkplaceDao">
+    <select id="selectWorkplaceList" parameterType="java.util.Map"
+            resultType="net.neurolines.genai.model.genai.IvWorkplace">
+        SELECT
+        iw.hq_code as hqCode,
+        ih.hq_name as hqName,
+        iw.wp_code as wpCode,
+        iw.wp_name as wpName,
+        iw.user_company_code as userCompanyCode,
+        iw.reg_ymd as regYmd,
+        iw.status as status
+        FROM IV_WORKPLACE iw
+        LEFT JOIN IV_HEADQUARTERS ih ON iw.hq_code = ih.hq_code AND (
+            iw.user_company_code = ih.user_company_code
+            OR (iw.user_company_code IS NULL AND ih.user_company_code IS NULL))
+        WHERE 1 = 1
+        <if test="userCompanyCode != null and userCompanyCode != ''">
+            AND iw.user_company_code = #{userCompanyCode}
+        </if>
+        <if test="hqCode != null and hqCode != ''">
+            AND iw.hq_code = #{hqCode}
+        </if>
+        <if test="wpCode != null and wpCode != ''">
+            AND iw.wp_code = #{wpCode}
+        </if>
+        <if test="wpName != null and wpName != ''">
+            AND iw.wp_name LIKE CONCAT('%', #{wpName}, '%')
+        </if>
+    </select>
+
+    <insert id="insertWorkplace" parameterType="net.neurolines.genai.model.genai.IvWorkplace">
+        INSERT INTO IV_WORKPLACE (hq_code, wp_code, wp_name, user_company_code, reg_ymd, status)
+        VALUES (
+                   #{hqCode},
+                   #{wpCode},
+                   #{wpName},
+                   #{userCompanyCode},
+                   CAST(DATE_FORMAT(CURDATE(), '%Y%m%d') AS UNSIGNED),
+                   1
+               )
+    </insert>
+
+    <select id="selectWorkplaceByWpCode" parameterType="java.util.Map"
+            resultType="net.neurolines.genai.model.genai.IvWorkplace">
+        SELECT
+        hq_code as hqCode,
+        wp_code as wpCode,
+        wp_name as wpName,
+        user_company_code as userCompanyCode,
+        reg_ymd as regYmd,
+        status as status
+        FROM IV_WORKPLACE
+        WHERE 1 = 1
+        AND wp_code = #{wpCode}
+          AND hq_code = #{hqCode}
+        <if test="userCompanyCode != null and userCompanyCode != ''">
+            and user_company_code = #{userCompanyCode}
+        </if>
+        <if test="userCompanyCode == null">
+            and user_company_code IS NULL
+        </if>
+    </select>
+
+    <update id="updateWorkplace" parameterType="net.neurolines.genai.model.genai.IvWorkplace">
+        UPDATE IV_WORKPLACE
+        SET
+        wp_name = #{wpName},
+        status = #{status}
+        WHERE
+            1  = 1
+        <if test="hqCode != null and hqCode != ''">
+            AND hq_code = #{hqCode}
+        </if>
+        <if test="wpCode != null and wpCode != ''">
+            AND wp_code = #{wpCode}
+        </if>
+        <if test="userCompanyCode != null and userCompanyCode != ''">
+            and user_company_code = #{userCompanyCode}
+        </if>
+        <if test="userCompanyCode == null">
+            and user_company_code IS NULL
+        </if>
+    </update>
+</mapper>

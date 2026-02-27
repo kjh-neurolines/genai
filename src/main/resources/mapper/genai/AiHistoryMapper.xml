@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.neurolines.genai.dao.genai.AiHistoryDao">
+
+    <insert id="insertChatHistory" parameterType="net.neurolines.genai.model.genai.AiHistory">
+        INSERT INTO AI_HISTORY
+        (
+        email,
+        session,
+        user_company_code,
+        prompt,
+        reg_ymd,
+        status
+        )
+        VALUES
+        (
+        #{email},
+        #{session},
+        #{userCompanyCode},
+        #{prompt},
+        CAST(DATE_FORMAT(CURDATE(), '%Y%m%d') AS UNSIGNED),
+        1
+        )
+    </insert>
+    
+    <select id="selectChatHistory" parameterType="java.util.Map"
+        resultType="net.neurolines.genai.model.genai.AiHistory">
+        SELECT
+            ah.aih_regno as aihRegNo,
+            email as email,
+            session as session,
+            user_company_code as userCompanyCode,
+            prompt as prompt,
+            reg_ymd as regYmd,
+            status as status
+        FROM AI_HISTORY ah
+        WHERE aih_regno IN (
+            SELECT
+                MIN(aih_regno)
+            FROM AI_HISTORY
+            WHERE 1 = 1
+              AND ah.status = 1
+              <choose>
+                  <when test="email != null and email != ''">
+                      AND email = #{email}
+                  </when>
+                <when test="email == null">
+                    AND email is NULL
+                </when>
+            </choose>
+            GROUP BY  session
+        )
+        ORDER BY aihRegNo DESC
+        LIMIT 20
+    </select>
+</mapper>

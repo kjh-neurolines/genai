@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+
+  <meta property="og:title" content="NeuroChem Inventory">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="images/img_og.png">
+  <meta property="og:site_name" content="NeuroChem Inventory">
+  <meta property="og:description" content="NeuroChem Inventory">
+
+  <link rel="shortcut icon" th:href="@{/images/favicon.ico}">
+
+  <title>NeuroChem Inventory</title>
+  <link th:href="@{/css/common.css}" rel="stylesheet" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <script th:src="@{/script/ai-auto-register.js}" type="text/javascript"> </script>
+
+
+</head>
+
+<body>
+  <div id="layoutSidenav">
+    <!-- 사이드바 -->
+    <div th:replace="~{layout/gnb :: gnbFragment}"></div>
+    <!-- //사이드바 -->
+    <div id="layoutSidenav-content">
+
+      <header>
+        <nav class="in-topnav navbar navbar-expand shadow-sm between fixed-top">
+          <div class="m-nav">
+            <button type="button" class="btn-mnav" id="btnMobileNav" aria-label="메뉴 열기"></button>
+            <h1><img th:src="@{/images/logo-black.svg}" /></h1>
+          </div>
+          <div class="logout-wrap">
+            <span class="logout-divider" aria-hidden="true"></span>
+            <a href="" class="ai-symbol"></a>
+            <button type="button" class="in-btn-close">
+              <span class="btn-close-text">닫기</span>
+            </button>
+          </div>
+        </nav>
+      </header>
+      <!-- 본문 -->
+      <main class="in-content py-3 py-lg-4">
+        <div class="container-fluid pt-0 in-page-wrap">
+          <div class="in-main-flex">
+            <!-- 페이지 타이틀 -->
+            <div class="title-area">
+              <h2 class="m-0 fw-bold"><img th:src="@{/images/icon/tit-ai-auto-register.svg}" alt="">AI 자동 등록</h2>
+              <!-- breadcrumb -->
+              <ol class="in-breadcrumb-list" id="breadcrumb"></ol>
+              <!-- //breadcrumb -->
+            </div>
+            <!-- 본문 -->
+            <div class="row pt-0 p-lg-2">
+              <!-- 안내 박스 -->
+              <section class="ai-note alert alert-light border ai-note-box mb-3" role="note" aria-label="AI 자동등록 안내">
+                <ul class="ai-note-list mb-0">
+                  <li>MSDS 파일을 업로드 하면 인공지능(AI)을 통해 Inventory를 자동으로 생성합니다.</li>
+                  <li>AI를 통한 자동화는 수초~수분이 소요될 수 있으며 결과에 대한 확인은 <span class="ai-note-em">AI 자동등록 검증</span>에서 확인하실 수 있습니다.</li>
+                  <li>AI를 통한 자동화는 <span class="ai-note-em">첫번째 항목에 등록된 MSDS</span>만 진행되며 나머지 업로드 파일은 업로드만 진행됩니다.</li>
+                </ul>
+              </section>
+
+              <section class="card in-card">
+                <div class="card-body p-0">
+
+                  <div class="table-responsive">
+                    <table class="table table-bordered align-middle in-table-type mb-0">
+                      <colgroup>
+                        <col style="width:350px;">
+                        <col style="width:auto;">
+                      </colgroup>
+                      <thead>
+                        <tr>
+                          <th scope="col">항목</th>
+                          <th scope="col">내용</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th class="bg-light">품목구분</th>
+                          <td>
+                            <select class="form-select form-select-sm w-auto" id="selProductType">
+                              <option selected value="">선택</option>
+                              <option value="1">원료</option>
+                              <option value="2">소모품</option>
+                              <option value="3">시약</option>
+                              <option value="4">제품</option>
+                              <option value="5">반제품</option>
+                            </select>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">자재/제품코드</th>
+                          <td class="bg-white">
+                            <div class="row g-2 align-items-center">
+                              <div class="col-12 col-lg-6">
+                                <input type="text" class="form-control form-control-sm" id="addProductCode"/>
+                              </div>
+                              <div class="col-12 col-lg">
+                                <small class="text-muted d-block text-start">
+                                  * 이미 같은 자재/제품코드가 있는 경우 기존 Inventory가 삭제되며 이 정보로 대체 됩니다.
+                                </small>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">벤더</th>
+                          <td>
+                            <select class="form-select form-select-sm w-auto" id="selVendor">
+
+                            </select>
+                          </td>
+                        </tr>
+                       <!-- <tr>
+                          <th class="bg-light">사용부서</th>
+                          <td class="bg-white">
+                            <div class="row g-2 align-items-center">
+                              <div class="col-12 col-lg-auto">
+                                <select class="form-select form-select-sm w-auto" id="selHqCode">
+                                  <option value="" selected>선택</option>
+                                  <option th:each="d : ${headquarterList}"
+                                          th:value="${d.hqCode}"
+                                          th:text="${d.hqName}">
+                                  </option>
+                                </select>
+                              </div>
+                              <div class="col-12 col-lg-auto">
+                                <select class="form-select form-select-sm w-auto" id="selWpCode">
+                                  <option selected>선택</option>
+                                </select>
+                              </div>
+                              <div class="col-12 col-lg-auto">
+                                <select class="form-select form-select-sm w-auto" id="selDmCode">
+                                  <option selected>선택</option>
+                                  <option>팀 1</option>
+                                  <option>팀 2</option>
+                                </select>
+                              </div>
+                              <div class="col-12 col-lg">
+                                <small class="text-muted d-block text-start">
+                                  * 사용부서가 없는 경우 Setting에서 사용부서를 등록하시기 바랍니다.
+                                </small>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>-->
+                        <tr>
+                          <th class="bg-light">MSDS 파일 - AI를 통한 Inventory 진행 <span class="text-danger">*</span></th>
+                          <td class="bg-white">
+                            <div class="col-12 col-lg">
+                              <div class="file-upload-ui" data-file-ui>
+                                <input type="file" class="file-hidden file" data-file-input>
+                                <input type="text" class="form-control file-text" readonly data-file-text>
+                                <button type="button" class="btn btn-dark btn-sm d-inline-flex align-items-center gap-1" data-file-btn>
+                                  <i class="bi bi-download"></i>첨부하기
+                                </button>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">MSDS 관련 파일</th>
+                          <td class="bg-white">
+                            <div class="col-12 col-lg">
+                              <div class="file-upload-ui" data-file-ui>
+                                <input type="file" class="file-hidden file" data-file-input>
+                                <input type="text" class="form-control file-text" readonly data-file-text>
+                                <button type="button" class="btn btn-dark btn-sm d-inline-flex align-items-center gap-1" data-file-btn>
+                                  <i class="bi bi-download"></i>첨부하기
+                                </button>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">MSDS 관련 파일</th>
+                          <td class="bg-white">
+                            <div class="col-12 col-lg">
+                              <div class="file-upload-ui" data-file-ui>
+                                <input type="file" class="file-hidden file" data-file-input>
+                                <input type="text" class="form-control file-text" readonly data-file-text>
+                                <button type="button" class="btn btn-dark btn-sm d-inline-flex align-items-center gap-1" data-file-btn>
+                                  <i class="bi bi-download"></i>첨부하기
+                                </button>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">MSDS 관련 파일</th>
+                          <td class="bg-white">
+                            <div class="col-12 col-lg">
+                              <div class="file-upload-ui" data-file-ui>
+                                <input type="file" class="file-hidden file" data-file-input>
+                                <input type="text" class="form-control file-text" readonly data-file-text>
+                                <button type="button" class="btn btn-dark btn-sm d-inline-flex align-items-center gap-1" data-file-btn>
+                                  <i class="bi bi-download"></i>첨부하기
+                                </button>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
+                          <th class="bg-light">MSDS 관련 파일</th>
+                          <td class="bg-white">
+                            <div class="col-12 col-lg">
+                              <div class="file-upload-ui" data-file-ui>
+                                <input type="file" class="file-hidden file" data-file-input>
+                                <input type="text" class="form-control file-text" readonly data-file-text>
+                                <button type="button" class="btn btn-dark btn-sm d-inline-flex align-items-center gap-1" data-file-btn>
+                                  <i class="bi bi-download"></i>첨부하기
+                                </button>
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+                <div class="btn-area justify-content-center">
+                  <button type="button" class="btn btn-primary" id="btnSubmit">등록</button>
+                </div>
+              </section>
+            </div>
+            <!-- .본문 -->
+
+            <aside class="ai-rightbar" aria-label="ChemTOS">
+              <a href="#" class="ai-rightbar-link" aria-label="Chem TOS">
+
+              </a>
+            </aside>
+
+          </div>
+        </div>
+      </main>
+      <!-- 우측 AI 배지 -->
+      <footer class="footer">
+        <div class="footer-inner">
+          <div class="footer-left">
+            <i class="ico-clock" aria-hidden="true"></i>
+            <span>2025.7.5 오전 9:00:00</span>
+          </div>
+
+          <div class="footer-right">
+            Copyright(c) 2025 NEUROCHEM ALL Rights Reserved.
+          </div>
+        </div>
+      </footer>
+
+      <!-- //본문 -->
+    </div>
+
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>
+
+  <script th:src="@{/js/scripts.js}" defer></script>
+  <script th:src="@{/js/breadcrumb.js}" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script th:src="@{/js/chart.js}" defer></script>
+
+
+</body>
+
+</html>

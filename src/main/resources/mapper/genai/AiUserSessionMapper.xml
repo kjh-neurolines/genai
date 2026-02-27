@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="net.neurolines.genai.dao.genai.AiUserSessionDao">
+
+    <select id="selectAiUserSession" parameterType="java.util.Map"
+            resultType="net.neurolines.genai.model.genai.AiUserSession">
+        SELECT
+            aus.ai_us_regno as aiUsRegNo,
+            aus.user_company_code as userCompanyCode,
+            aus.dm_code as dmCode,
+            aus.email as email,
+            aus.session as session,
+            aus.session_name as sessionName,
+            aus.reg_ymd as regYmd,
+            aus.status as status
+        FROM AI_USER_SESSION aus
+        WHERE status = 1
+        <choose>
+            <when test="email != null and email != ''">
+                AND email = #{email}
+            </when>
+            <when test="email == null">
+                AND email is NULL
+            </when>
+        </choose>
+    </select>
+
+    <insert id="insertAiUserSession" parameterType="net.neurolines.genai.model.genai.AiUserSession">
+        INSERT INTO AI_USER_SESSION (
+            user_company_code,
+            dm_code,
+            email,
+            session,
+            session_name,
+            reg_ymd,
+            status
+        ) VALUES (
+            #{userCompanyCode},
+            #{dmCode},
+            #{email},
+            #{session},
+            #{sessionName},
+            CAST(DATE_FORMAT(CURDATE(), '%Y%m%d') AS UNSIGNED),
+            1
+        )
+    </insert>
+
+    <delete id="deleteAiUserSession" parameterType="java.lang.Integer">
+        UPDATE AI_USER_SESSION SET
+        status = 0
+        WHERE ai_us_regno = #{aiUsRegNo}
+    </delete>
+
+    <update id="updateAiUserSession" parameterType="net.neurolines.genai.model.genai.AiUserSession">
+        UPDATE AI_USER_SESSION SET
+            session_name = #{sessionName}
+        WHERE ai_us_regno = #{aiUsRegNo}
+    </update>
+</mapper>
