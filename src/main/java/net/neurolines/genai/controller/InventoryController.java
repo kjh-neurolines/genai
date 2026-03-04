@@ -2,6 +2,7 @@ package net.neurolines.genai.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import net.neurolines.genai.model.AuthUser;
 import net.neurolines.genai.model.RequestDTO;
 import net.neurolines.genai.model.ResultDTO;
@@ -20,6 +21,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/iv")
 public class InventoryController {
@@ -40,7 +42,7 @@ public class InventoryController {
             HttpServletResponse response,
             @RequestPart(value = "file", required = true) MultipartFile[] file,
             @RequestPart(value = "requestDTO") RequestDTO requestDTO
-    ) throws IOException {
+    ) {
 
         List<AuthUser> userInfo = authService.user(request, response);
         String email = null;
@@ -60,7 +62,14 @@ public class InventoryController {
         IvInventory inventory = inventoryService.saveDefaultInfo(requestDTO);
 
         if(inventory.getStatus() != 99) {
-            String fileUrl = inventoryService.uploadMsdsFile(inventory, file, requestDTO);
+            String fileUrl = null;
+
+            try {
+                fileUrl = inventoryService.uploadMsdsFile(inventory, file, requestDTO);
+            } catch (IOException e) {
+                log.info(e.toString());
+                throw new RuntimeException(e);
+            }
 
             Map<String, Object> parsingData = parsingService.parsingKoMsds(fileUrl);
             parsingData.put("iviRegno", inventory.getIviRegno());

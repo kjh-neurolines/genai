@@ -25,10 +25,7 @@ import org.springframework.web.client.RestTemplate;
 
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -78,7 +75,10 @@ public class ParsingService {
             if(parseResult.containsKey("01010100")) {
                 Map<String, Object> productData = (Map<String, Object>) parseResult.get("01010100");
 
-                String result = productData.get("RESULT").toString().replaceAll(cleanText, "");
+                String result = Optional.ofNullable(productData.get("RESULT"))
+                        .map(Object::toString)
+                        .map(s -> s.replaceAll(cleanText, ""))
+                        .orElse(""); // null일 경우 빈 문자열 반환
 
                 productName = result;
 
@@ -96,7 +96,10 @@ public class ParsingService {
             if (parseResult.containsKey("1605000")) {
                 Map<String, Object> section16Data = (Map<String, Object>) parseResult.get("1605000");
 
-                String result = section16Data.get("RESULT").toString().replaceAll(cleanText, "");
+                String result = Optional.ofNullable(section16Data.get("RESULT"))
+                        .map(Object::toString)
+                        .map(s -> s.replaceAll(cleanText, ""))
+                        .orElse(""); // null일 경우 빈 문자열 반환
 
                 if(result.length() > 45)
                     result = result.substring(0, 45);
@@ -1654,12 +1657,41 @@ public class ParsingService {
 
                     if(defaultData != null && !chemFlag)
                     {
-                        String result = defaultData.get("RESULT").toString().replaceAll(cleanText, "");
+                        Map<String, Object> regData = (Map<String, Object>) defaultData.get("08010100");
+
+                        String result = regData.get("RESULT").toString().replaceAll(cleanText, "");
 
                         if (result.length() > 200)
                             result = result.substring(0, 200);
 
-                        chem.setOtherEffect(result);
+                        chem.setNationalExrposure(result);
+
+                        regData = (Map<String, Object>) defaultData.get("08010200");
+
+                        result = regData.get("RESULT").toString().replaceAll(cleanText, "");
+
+                        if (result.length() > 200)
+                            result = result.substring(0, 200);
+
+                        chem.setAcgihReg(result);
+
+                        regData = (Map<String, Object>) defaultData.get("08010300");
+
+                        result = regData.get("RESULT").toString().replaceAll(cleanText, "");
+
+                        if (result.length() > 200)
+                            result = result.substring(0, 200);
+
+                        chem.setOshaReg(result);
+
+                        regData = (Map<String, Object>) defaultData.get("08010600");
+
+                        result = regData.get("RESULT").toString().replaceAll(cleanText, "");
+
+                        if (result.length() > 200)
+                            result = result.substring(0, 200);
+
+                        chem.setBioReg(result);
                     }
                 }
             }
@@ -2134,11 +2166,13 @@ public class ParsingService {
 
         }catch(RestClientException e)
         {
+            log.error("에러 발생!", e);
             sectionData.put("status", 99);
             sectionData.put("errorMsg", "API 통신 도중 오류가 발생했습니다.");
         }
         catch(Exception e)
         {
+            log.error("에러 발생!", e);
             sectionData.put("status", 99);
             sectionData.put("errorMsg", "파싱 도중 오류가 발생했습니다.");
         }

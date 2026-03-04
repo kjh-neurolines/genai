@@ -2,6 +2,7 @@ package net.neurolines.genai.service;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import net.neurolines.genai.dao.genai.InventoryDao;
 import net.neurolines.genai.model.RequestDTO;
 import net.neurolines.genai.model.genai.*;
@@ -18,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Service
 public class InventoryService {
 
@@ -64,14 +66,16 @@ public class InventoryService {
     public String uploadMsdsFile(IvInventory inventory, MultipartFile[] files, RequestDTO requestDTO) throws IOException {
 
         String fileUrl = "";
-        String msdsPath = filePath + "msds/";
+        String msdsPath = "msds/";
 
-        File directory = new File(msdsPath);
+        File directory = new File(filePath + msdsPath);
         if (!directory.exists()) {
             if (directory.mkdirs()) {
-                System.out.println("폴더가 생성되었습니다: " + msdsPath);
+                System.out.println("make directory: " + msdsPath);
             } else {
-                throw new IOException("Failed to create directory: " + msdsPath);
+                {
+                    throw new IOException("Failed to create directory: " + msdsPath);
+                }
             }
         }
 
@@ -84,13 +88,13 @@ public class InventoryService {
             int index = i+1;
 
             String randomFilename = "MSDS_" + inventory.getIviRegno() + "_" + index + getFileExtension(orgFilename);;
-            String path = filePath + "msds/" + randomFilename;
+            String path = filePath + msdsPath + randomFilename;
 
             try {
                 files[i].transferTo(new File(path));
                 IvInventoryFile file = IvInventoryFile
                         .builder()
-                        .fileName("/" + randomFilename)
+                        .fileName(msdsPath + randomFilename)
                         .orgFilename(orgFilename)
                         .iviRegno(inventory.getIviRegno()) // AI 파싱하는 파일은 무조건 1번째로 지정
                         .ivifRegno(index)
@@ -120,7 +124,7 @@ public class InventoryService {
         ObjectMapper objectMapper = new ObjectMapper()
                 .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         IvInventory inventory = objectMapper.convertValue(data, IvInventory.class);
-        List<IvInventoryClassResult> toxcities = new ArrayList<>();
+        List<IvInventoryClassResult> classResults = new ArrayList<>();
 
         try {
 
@@ -139,13 +143,13 @@ public class InventoryService {
 
             if (ghsCodes != null && ghsCodes.size() > 0) {
                 for (String code : ghsCodes) {
-                    toxcities.add(IvInventoryClassResult.builder()
+                    classResults.add(IvInventoryClassResult.builder()
                             .classResultCode(code)
                             .iviRegno(Integer.parseInt(String.valueOf(data.get("iviRegno"))))
                             .build());
                 }
 
-                inventoryDao.insertInventoryClassResult(toxcities);
+                inventoryDao.insertInventoryClassResult(classResults);
             }
 
             // 물질 정보

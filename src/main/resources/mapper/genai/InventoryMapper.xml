@@ -208,7 +208,7 @@
                                            status
         ) VALUES
 
-        <foreach item="item" collection="chemicalList" separator=",">
+        <foreach item="item" collection="list" separator=",">
         (
          #{item.iviRegno},
          #{item.formula},
@@ -300,7 +300,7 @@
         INSERT INTO IV_INVENTORY_CLASS_RESULT
         (ivi_regno, calss_result_code)
         VALUES
-        <foreach item="item" collection="classResults" separator=",">
+        <foreach item="item" collection="list" separator=",">
             (#{item.iviRegno}, #{item.classResultCode})
         </foreach>
     </insert>
@@ -310,7 +310,7 @@
         INSERT INTO IV_INVENTORY_PICTURE
         (ivi_regno, picture)
         VALUES
-        <foreach item="item" collection="pictures" separator=",">
+        <foreach item="item" collection="list" separator=",">
             (#{item.iviRegno}, #{item.picture})
         </foreach>
     </insert>
@@ -319,7 +319,7 @@
         INSERT INTO IV_INVENTORY_HCODE
         (ivi_regno, content)
         VALUES
-        <foreach item="item" collection="hcodes" separator=",">
+        <foreach item="item" collection="list" separator=",">
             (#{item.iviRegno}, #{item.content})
         </foreach>
     </insert>
@@ -328,7 +328,7 @@
         INSERT INTO IV_INVENTORY_PCODE
         (ivi_regno, type, content)
         VALUES
-        <foreach item="item" collection="pcodes" separator=",">
+        <foreach item="item" collection="list" separator=",">
             (#{item.iviRegno}, #{item.type} ,#{item.content})
         </foreach>
     </insert>
