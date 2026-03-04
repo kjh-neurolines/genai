@@ -81,7 +81,7 @@ public class ChatController {
      * @return
      */
     @PostMapping("/session/history/{sessionId}")
-    public ResponseEntity<Object> getSessionHistory(@PathVariable String sessionId)
+    public ResponseEntity<Object> getSessionHistory(@PathVariable("sessionId") String sessionId)
     {
         return ResponseEntity.ok(chatService.getSessionHistory(sessionId));
     }

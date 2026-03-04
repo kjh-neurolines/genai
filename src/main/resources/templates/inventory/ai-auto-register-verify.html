@@ -16,7 +16,9 @@
   <title>NeuroChem Inventory</title>
 
   <link th:href="@{/css/common.css}" rel="stylesheet" />
-  <link th:href="@{/vendor/bootstrap-icons/bootstrap-icons.min.css}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script th:src="@{/script/common.js}" defer></script>
 </head>
 
 <body>
@@ -253,7 +255,7 @@
       <div class="footer-inner">
         <div class="footer-left">
           <i class="ico-clock" aria-hidden="true"></i>
-          <span>2025.7.5 오전 9:00:00</span>
+          <span id="nowTime">2025.7.5 오전 9:00:00</span>
         </div>
 
         <div class="footer-right">
@@ -1231,7 +1233,7 @@
           <div class="modal-footer">
             <button class="btn btn-outline-danger" type="button">삭제</button>
             <button class="btn btn-outline-primary" type="button">임시저장</button>
-            <button class="btn btn-outline-primary" type="button">보안필요</button>
+            <button class="btn btn-outline-primary" type="button">보완필요</button>
             <button class="btn btn-primary" type="button">검증완료</button>
           </div>
 

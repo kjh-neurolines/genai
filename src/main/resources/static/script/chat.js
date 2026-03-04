@@ -9,6 +9,9 @@ $(document).ready(function () {
 	})
 
 	$("#mLogo").on("click", function () {
+
+		const mobileMenu = document.getElementById("mobile-menu");
+
 		$(".index-main").show(400);
 		$(".prompt-main").hide(0);
 		$(".quickactions-main").hide(0);
@@ -23,6 +26,8 @@ $(document).ready(function () {
 	})
 
 	$("#mPrompt").on("click", function () {
+
+		const mobileMenu = document.getElementById("mobile-menu");
 		$(".index-main").hide(0);
 		$(".prompt-main").show(400);
 		$(".quickactions-main").hide(0);
@@ -39,6 +44,9 @@ $(document).ready(function () {
 	});
 
 	$("#mQuickAction").on("click", function () {
+
+		const mobileMenu = document.getElementById("mobile-menu");
+
 		$(".index-main").hide(0);
 		$(".prompt-main").hide(0);
 		$(".quickactions-main").show(400);

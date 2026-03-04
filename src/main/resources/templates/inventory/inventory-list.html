@@ -17,6 +17,9 @@
 
   <link th:href="@{/css/common.css}" rel="stylesheet" />
   <link th:href="@{/vendor/bootstrap-icons/bootstrap-icons.min.css}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script th:src="@{/script/common.js}" defer></script>
 
 </head>
 
@@ -270,7 +273,7 @@
       <div class="footer-inner">
         <div class="footer-left">
           <i class="ico-clock" aria-hidden="true"></i>
-          <span>2025.7.5 오전 9:00:00</span>
+          <span id="nowTime">2025.7.5 오전 9:00:00</span>
         </div>
 
         <div class="footer-right">
