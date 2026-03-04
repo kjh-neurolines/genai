@@ -52,4 +52,4 @@ pagehelper:
 
 pdf:
   url: http://103.57.61.102:12001
-  upload-path: /var/www/genai.neurolines.net/upload
+  upload-path: D:/upload/

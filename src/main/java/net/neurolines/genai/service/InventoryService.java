@@ -61,10 +61,19 @@ public class InventoryService {
      * @param files
      * @return
      */
-    public String uploadFile(IvInventory inventory, MultipartFile[] files, RequestDTO requestDTO)
-    {
+    public String uploadMsdsFile(IvInventory inventory, MultipartFile[] files, RequestDTO requestDTO) throws IOException {
 
         String fileUrl = "";
+        String msdsPath = filePath + "msds/";
+
+        File directory = new File(msdsPath);
+        if (!directory.exists()) {
+            if (directory.mkdirs()) {
+                System.out.println("폴더가 생성되었습니다: " + msdsPath);
+            } else {
+                throw new IOException("Failed to create directory: " + msdsPath);
+            }
+        }
 
         for(int i = 0; i < files.length; i++)
         {
@@ -75,7 +84,7 @@ public class InventoryService {
             int index = i+1;
 
             String randomFilename = "MSDS_" + inventory.getIviRegno() + "_" + index + getFileExtension(orgFilename);;
-            String path = filePath + randomFilename;
+            String path = filePath + "msds/" + randomFilename;
 
             try {
                 files[i].transferTo(new File(path));

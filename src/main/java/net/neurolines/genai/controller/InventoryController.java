@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,7 +40,7 @@ public class InventoryController {
             HttpServletResponse response,
             @RequestPart(value = "file", required = true) MultipartFile[] file,
             @RequestPart(value = "requestDTO") RequestDTO requestDTO
-    ) {
+    ) throws IOException {
 
         List<AuthUser> userInfo = authService.user(request, response);
         String email = null;
@@ -59,7 +60,7 @@ public class InventoryController {
         IvInventory inventory = inventoryService.saveDefaultInfo(requestDTO);
 
         if(inventory.getStatus() != 99) {
-            String fileUrl = inventoryService.uploadFile(inventory, file, requestDTO);
+            String fileUrl = inventoryService.uploadMsdsFile(inventory, file, requestDTO);
 
             Map<String, Object> parsingData = parsingService.parsingKoMsds(fileUrl);
             parsingData.put("iviRegno", inventory.getIviRegno());
